@@ -1,0 +1,8 @@
+<persons>
+    <person>
+        <name>foo</name>
+    </person>
+    <person>
+        <name>bar</name>
+    </person>
+</persons>
