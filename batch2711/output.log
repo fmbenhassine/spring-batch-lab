@@ -1,0 +1,188 @@
+# mbenhassine @ Mahmouds-MBP in ~/Downloads/batch-2741 [23:46:03]
+$ java -jar target/batch-2741-0.0.1-SNAPSHOT.jar name=foo
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.0.5.RELEASE)
+
+2018-09-16 23:46:40.636  INFO 20453 --- [           main] c.e.batch2741.Batch2741Application       : Starting Batch2741Application v0.0.1-SNAPSHOT on Mahmouds-MBP.local with PID 20453 (/Users/mbenhassine/Downloads/batch-2741/target/batch-2741-0.0.1-SNAPSHOT.jar started by mbenhassine in /Users/mbenhassine/Downloads/batch-2741)
+2018-09-16 23:46:40.642  INFO 20453 --- [           main] c.e.batch2741.Batch2741Application       : No active profile set, falling back to default profiles: default
+2018-09-16 23:46:40.715  INFO 20453 --- [           main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@1afd44cb: startup date [Sun Sep 16 23:46:40 CEST 2018]; root of context hierarchy
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.springframework.cglib.core.ReflectUtils$1 (jar:file:/Users/mbenhassine/Downloads/batch-2741/target/batch-2741-0.0.1-SNAPSHOT.jar!/BOOT-INF/lib/spring-core-5.0.9.RELEASE.jar!/) to method java.lang.ClassLoader.defineClass(java.lang.String,byte[],int,int,java.security.ProtectionDomain)
+WARNING: Please consider reporting this to the maintainers of org.springframework.cglib.core.ReflectUtils$1
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2018-09-16 23:46:41.874  INFO 20453 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2018-09-16 23:46:42.158  INFO 20453 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2018-09-16 23:46:42.169  INFO 20453 --- [           main] o.s.b.c.r.s.JobRepositoryFactoryBean     : No database type set, using meta data indicating: MYSQL
+2018-09-16 23:46:42.339  INFO 20453 --- [           main] o.s.b.c.l.support.SimpleJobLauncher      : No TaskExecutor has been set, defaulting to synchronous executor.
+2018-09-16 23:46:42.514  INFO 20453 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-09-16 23:46:42.514  INFO 20453 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'dataSource' has been autodetected for JMX exposure
+2018-09-16 23:46:42.518  INFO 20453 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Located MBean 'dataSource': registering with JMX server as MBean [com.zaxxer.hikari:name=dataSource,type=HikariDataSource]
+2018-09-16 23:46:42.530  INFO 20453 --- [           main] c.e.batch2741.Batch2741Application       : Started Batch2741Application in 2.319 seconds (JVM running for 2.816)
+2018-09-16 23:46:42.532  INFO 20453 --- [           main] o.s.b.a.b.JobLauncherCommandLineRunner   : Running default command line with: [name=foo]
+2018-09-16 23:46:42.628  INFO 20453 --- [           main] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=job]] launched with the following parameters: [{name=foo}]
+2018-09-16 23:46:42.675  INFO 20453 --- [           main] o.s.batch.core.job.SimpleStepHandler     : Executing step: [step]
+2018-09-16 23:46:42.705 ERROR 20453 --- [           main] o.s.batch.core.step.AbstractStep         : Encountered an error executing step step in job job
+
+java.lang.Exception: Boom!
+	at com.example.batch2741.JobConfiguration.lambda$step$0(JobConfiguration.java:25) ~[classes!/:0.0.1-SNAPSHOT]
+	at org.springframework.batch.core.step.tasklet.TaskletStep$ChunkTransactionCallback.doInTransaction(TaskletStep.java:406) ~[spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.core.step.tasklet.TaskletStep$ChunkTransactionCallback.doInTransaction(TaskletStep.java:330) ~[spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:140) ~[spring-tx-5.0.9.RELEASE.jar!/:5.0.9.RELEASE]
+	at org.springframework.batch.core.step.tasklet.TaskletStep$2.doInChunkContext(TaskletStep.java:272) ~[spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.core.scope.context.StepContextRepeatCallback.doInIteration(StepContextRepeatCallback.java:81) ~[spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.repeat.support.RepeatTemplate.getNextResult(RepeatTemplate.java:375) ~[spring-batch-infrastructure-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.repeat.support.RepeatTemplate.executeInternal(RepeatTemplate.java:215) ~[spring-batch-infrastructure-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.repeat.support.RepeatTemplate.iterate(RepeatTemplate.java:145) ~[spring-batch-infrastructure-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.core.step.tasklet.TaskletStep.doExecute(TaskletStep.java:257) ~[spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.core.step.AbstractStep.execute(AbstractStep.java:200) ~[spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.core.job.SimpleStepHandler.handleStep(SimpleStepHandler.java:148) [spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.core.job.AbstractJob.handleStep(AbstractJob.java:394) [spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.core.job.SimpleJob.doExecute(SimpleJob.java:135) [spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.core.job.AbstractJob.execute(AbstractJob.java:308) [spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.core.launch.support.SimpleJobLauncher$1.run(SimpleJobLauncher.java:141) [spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.core.task.SyncTaskExecutor.execute(SyncTaskExecutor.java:50) [spring-core-5.0.9.RELEASE.jar!/:5.0.9.RELEASE]
+	at org.springframework.batch.core.launch.support.SimpleJobLauncher.run(SimpleJobLauncher.java:134) [spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:343) [spring-aop-5.0.9.RELEASE.jar!/:5.0.9.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:197) [spring-aop-5.0.9.RELEASE.jar!/:5.0.9.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) [spring-aop-5.0.9.RELEASE.jar!/:5.0.9.RELEASE]
+	at org.springframework.batch.core.configuration.annotation.SimpleBatchConfiguration$PassthruAdvice.invoke(SimpleBatchConfiguration.java:127) [spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:185) [spring-aop-5.0.9.RELEASE.jar!/:5.0.9.RELEASE]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:212) [spring-aop-5.0.9.RELEASE.jar!/:5.0.9.RELEASE]
+	at com.sun.proxy.$Proxy44.run(Unknown Source) [na:na]
+	at org.springframework.boot.autoconfigure.batch.JobLauncherCommandLineRunner.execute(JobLauncherCommandLineRunner.java:163) [spring-boot-autoconfigure-2.0.5.RELEASE.jar!/:2.0.5.RELEASE]
+	at org.springframework.boot.autoconfigure.batch.JobLauncherCommandLineRunner.executeLocalJobs(JobLauncherCommandLineRunner.java:179) [spring-boot-autoconfigure-2.0.5.RELEASE.jar!/:2.0.5.RELEASE]
+	at org.springframework.boot.autoconfigure.batch.JobLauncherCommandLineRunner.launchJobFromProperties(JobLauncherCommandLineRunner.java:134) [spring-boot-autoconfigure-2.0.5.RELEASE.jar!/:2.0.5.RELEASE]
+	at org.springframework.boot.autoconfigure.batch.JobLauncherCommandLineRunner.run(JobLauncherCommandLineRunner.java:128) [spring-boot-autoconfigure-2.0.5.RELEASE.jar!/:2.0.5.RELEASE]
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:818) [spring-boot-2.0.5.RELEASE.jar!/:2.0.5.RELEASE]
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:802) [spring-boot-2.0.5.RELEASE.jar!/:2.0.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:341) [spring-boot-2.0.5.RELEASE.jar!/:2.0.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1277) [spring-boot-2.0.5.RELEASE.jar!/:2.0.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1265) [spring-boot-2.0.5.RELEASE.jar!/:2.0.5.RELEASE]
+	at com.example.batch2741.Batch2741Application.main(Batch2741Application.java:12) [classes!/:0.0.1-SNAPSHOT]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
+	at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:48) [batch-2741-0.0.1-SNAPSHOT.jar:0.0.1-SNAPSHOT]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:87) [batch-2741-0.0.1-SNAPSHOT.jar:0.0.1-SNAPSHOT]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:50) [batch-2741-0.0.1-SNAPSHOT.jar:0.0.1-SNAPSHOT]
+	at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:51) [batch-2741-0.0.1-SNAPSHOT.jar:0.0.1-SNAPSHOT]
+
+2018-09-16 23:46:42.730  INFO 20453 --- [           main] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=job]] completed with the following parameters: [{name=foo}] and the following status: [FAILED]
+2018-09-16 23:46:42.733  INFO 20453 --- [       Thread-1] s.c.a.AnnotationConfigApplicationContext : Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@1afd44cb: startup date [Sun Sep 16 23:46:40 CEST 2018]; root of context hierarchy
+2018-09-16 23:46:42.735  INFO 20453 --- [       Thread-1] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2018-09-16 23:46:42.736  INFO 20453 --- [       Thread-1] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans
+2018-09-16 23:46:42.737  INFO 20453 --- [       Thread-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2018-09-16 23:46:42.744  INFO 20453 --- [       Thread-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+
+# mbenhassine @ Mahmouds-MBP in ~/Downloads/batch-2741 [23:46:42]
+$ java -jar target/batch-2741-0.0.1-SNAPSHOT.jar name=bar
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.0.5.RELEASE)
+
+2018-09-16 23:46:58.905  INFO 20459 --- [           main] c.e.batch2741.Batch2741Application       : Starting Batch2741Application v0.0.1-SNAPSHOT on Mahmouds-MBP.local with PID 20459 (/Users/mbenhassine/Downloads/batch-2741/target/batch-2741-0.0.1-SNAPSHOT.jar started by mbenhassine in /Users/mbenhassine/Downloads/batch-2741)
+2018-09-16 23:46:58.912  INFO 20459 --- [           main] c.e.batch2741.Batch2741Application       : No active profile set, falling back to default profiles: default
+2018-09-16 23:46:58.990  INFO 20459 --- [           main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@6dc17b83: startup date [Sun Sep 16 23:46:58 CEST 2018]; root of context hierarchy
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.springframework.cglib.core.ReflectUtils$1 (jar:file:/Users/mbenhassine/Downloads/batch-2741/target/batch-2741-0.0.1-SNAPSHOT.jar!/BOOT-INF/lib/spring-core-5.0.9.RELEASE.jar!/) to method java.lang.ClassLoader.defineClass(java.lang.String,byte[],int,int,java.security.ProtectionDomain)
+WARNING: Please consider reporting this to the maintainers of org.springframework.cglib.core.ReflectUtils$1
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2018-09-16 23:47:00.107  INFO 20459 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2018-09-16 23:47:00.435  INFO 20459 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2018-09-16 23:47:00.449  INFO 20459 --- [           main] o.s.b.c.r.s.JobRepositoryFactoryBean     : No database type set, using meta data indicating: MYSQL
+2018-09-16 23:47:00.658  INFO 20459 --- [           main] o.s.b.c.l.support.SimpleJobLauncher      : No TaskExecutor has been set, defaulting to synchronous executor.
+2018-09-16 23:47:00.864  INFO 20459 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-09-16 23:47:00.865  INFO 20459 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'dataSource' has been autodetected for JMX exposure
+2018-09-16 23:47:00.869  INFO 20459 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Located MBean 'dataSource': registering with JMX server as MBean [com.zaxxer.hikari:name=dataSource,type=HikariDataSource]
+2018-09-16 23:47:00.883  INFO 20459 --- [           main] c.e.batch2741.Batch2741Application       : Started Batch2741Application in 2.437 seconds (JVM running for 2.98)
+2018-09-16 23:47:00.885  INFO 20459 --- [           main] o.s.b.a.b.JobLauncherCommandLineRunner   : Running default command line with: [name=bar]
+2018-09-16 23:47:01.061  INFO 20459 --- [           main] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=job]] launched with the following parameters: [{name=foo}]
+2018-09-16 23:47:01.112  INFO 20459 --- [           main] o.s.batch.core.job.SimpleStepHandler     : Executing step: [step]
+2018-09-16 23:47:01.145 ERROR 20459 --- [           main] o.s.batch.core.step.AbstractStep         : Encountered an error executing step step in job job
+
+java.lang.Exception: Boom!
+	at com.example.batch2741.JobConfiguration.lambda$step$0(JobConfiguration.java:25) ~[classes!/:0.0.1-SNAPSHOT]
+	at org.springframework.batch.core.step.tasklet.TaskletStep$ChunkTransactionCallback.doInTransaction(TaskletStep.java:406) ~[spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.core.step.tasklet.TaskletStep$ChunkTransactionCallback.doInTransaction(TaskletStep.java:330) ~[spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:140) ~[spring-tx-5.0.9.RELEASE.jar!/:5.0.9.RELEASE]
+	at org.springframework.batch.core.step.tasklet.TaskletStep$2.doInChunkContext(TaskletStep.java:272) ~[spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.core.scope.context.StepContextRepeatCallback.doInIteration(StepContextRepeatCallback.java:81) ~[spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.repeat.support.RepeatTemplate.getNextResult(RepeatTemplate.java:375) ~[spring-batch-infrastructure-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.repeat.support.RepeatTemplate.executeInternal(RepeatTemplate.java:215) ~[spring-batch-infrastructure-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.repeat.support.RepeatTemplate.iterate(RepeatTemplate.java:145) ~[spring-batch-infrastructure-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.core.step.tasklet.TaskletStep.doExecute(TaskletStep.java:257) ~[spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.core.step.AbstractStep.execute(AbstractStep.java:200) ~[spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.core.job.SimpleStepHandler.handleStep(SimpleStepHandler.java:148) [spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.core.job.AbstractJob.handleStep(AbstractJob.java:394) [spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.core.job.SimpleJob.doExecute(SimpleJob.java:135) [spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.core.job.AbstractJob.execute(AbstractJob.java:308) [spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.batch.core.launch.support.SimpleJobLauncher$1.run(SimpleJobLauncher.java:141) [spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.core.task.SyncTaskExecutor.execute(SyncTaskExecutor.java:50) [spring-core-5.0.9.RELEASE.jar!/:5.0.9.RELEASE]
+	at org.springframework.batch.core.launch.support.SimpleJobLauncher.run(SimpleJobLauncher.java:134) [spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:343) [spring-aop-5.0.9.RELEASE.jar!/:5.0.9.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:197) [spring-aop-5.0.9.RELEASE.jar!/:5.0.9.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) [spring-aop-5.0.9.RELEASE.jar!/:5.0.9.RELEASE]
+	at org.springframework.batch.core.configuration.annotation.SimpleBatchConfiguration$PassthruAdvice.invoke(SimpleBatchConfiguration.java:127) [spring-batch-core-4.0.1.RELEASE.jar!/:4.0.1.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:185) [spring-aop-5.0.9.RELEASE.jar!/:5.0.9.RELEASE]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:212) [spring-aop-5.0.9.RELEASE.jar!/:5.0.9.RELEASE]
+	at com.sun.proxy.$Proxy44.run(Unknown Source) [na:na]
+	at org.springframework.boot.autoconfigure.batch.JobLauncherCommandLineRunner.execute(JobLauncherCommandLineRunner.java:163) [spring-boot-autoconfigure-2.0.5.RELEASE.jar!/:2.0.5.RELEASE]
+	at org.springframework.boot.autoconfigure.batch.JobLauncherCommandLineRunner.executeLocalJobs(JobLauncherCommandLineRunner.java:179) [spring-boot-autoconfigure-2.0.5.RELEASE.jar!/:2.0.5.RELEASE]
+	at org.springframework.boot.autoconfigure.batch.JobLauncherCommandLineRunner.launchJobFromProperties(JobLauncherCommandLineRunner.java:134) [spring-boot-autoconfigure-2.0.5.RELEASE.jar!/:2.0.5.RELEASE]
+	at org.springframework.boot.autoconfigure.batch.JobLauncherCommandLineRunner.run(JobLauncherCommandLineRunner.java:128) [spring-boot-autoconfigure-2.0.5.RELEASE.jar!/:2.0.5.RELEASE]
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:818) [spring-boot-2.0.5.RELEASE.jar!/:2.0.5.RELEASE]
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:802) [spring-boot-2.0.5.RELEASE.jar!/:2.0.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:341) [spring-boot-2.0.5.RELEASE.jar!/:2.0.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1277) [spring-boot-2.0.5.RELEASE.jar!/:2.0.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1265) [spring-boot-2.0.5.RELEASE.jar!/:2.0.5.RELEASE]
+	at com.example.batch2741.Batch2741Application.main(Batch2741Application.java:12) [classes!/:0.0.1-SNAPSHOT]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
+	at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:48) [batch-2741-0.0.1-SNAPSHOT.jar:0.0.1-SNAPSHOT]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:87) [batch-2741-0.0.1-SNAPSHOT.jar:0.0.1-SNAPSHOT]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:50) [batch-2741-0.0.1-SNAPSHOT.jar:0.0.1-SNAPSHOT]
+	at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:51) [batch-2741-0.0.1-SNAPSHOT.jar:0.0.1-SNAPSHOT]
+
+2018-09-16 23:47:01.175  INFO 20459 --- [           main] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=job]] completed with the following parameters: [{name=foo}] and the following status: [FAILED]
+2018-09-16 23:47:01.177  INFO 20459 --- [       Thread-1] s.c.a.AnnotationConfigApplicationContext : Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@6dc17b83: startup date [Sun Sep 16 23:46:58 CEST 2018]; root of context hierarchy
+2018-09-16 23:47:01.179  INFO 20459 --- [       Thread-1] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2018-09-16 23:47:01.180  INFO 20459 --- [       Thread-1] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans
+2018-09-16 23:47:01.181  INFO 20459 --- [       Thread-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2018-09-16 23:47:01.193  INFO 20459 --- [       Thread-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+
+# mbenhassine @ Mahmouds-MBP in ~/Downloads/batch-2741 [23:47:01]
+
+-------------------
+-------------------
+
+When I run the app with parameter name=bar, I still see:
+
+Job: [SimpleJob: [name=job]] launched with the following parameters: [{name=foo}]
+
+and
+
+Job: [SimpleJob: [name=job]] completed with the following parameters: [{name=foo}] and the following status: [FAILED]
