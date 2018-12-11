@@ -24,9 +24,10 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.partition.support.MultiResourcePartitioner;
+import org.springframework.batch.core.partition.support.SimpleStepExecutionSplitter;
+import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.SystemCommandTasklet;
-import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.PassThroughLineMapper;
@@ -40,14 +41,15 @@ import org.springframework.core.task.SimpleAsyncTaskExecutor;
 @Configuration
 public class MapReduceSampleJob {
 
+	private static final int CHUNK_SIZE = 2;
 	private static final int DEFAULT_PARTITION_SIZE = 4;
-
-	private static final String DEFAULT_PARTITION_PREFIX = "partition";
-
 	private static final int TASKLET_TIMEOUT = 1000;
 
-	private final JobBuilderFactory jobBuilderFactory;
+	private static final String PARTITIONED_STEP_NAME = "aggregateWordCountStep";
+	private static final String WORKER_STEP_NAME = "wordCountStep";
+	private static final String DEFAULT_PARTITION_PREFIX = "partition";
 
+	private final JobBuilderFactory jobBuilderFactory;
 	private final StepBuilderFactory stepBuilderFactory;
 
 	public MapReduceSampleJob(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory) {
@@ -57,13 +59,29 @@ public class MapReduceSampleJob {
 
 	@Bean
 	public Step aggregateWordCountStep() {
-		return stepBuilderFactory.get("aggregateWordCountStep")
-				.partitioner(wordCountStep().getName(), partitioner(null))
+		return stepBuilderFactory.get(PARTITIONED_STEP_NAME)
+				.partitioner(WORKER_STEP_NAME, partitioner(null))
 				.step(wordCountStep())
 				.gridSize(DEFAULT_PARTITION_SIZE)
 				.taskExecutor(new SimpleAsyncTaskExecutor())
-				.aggregator(new WordCountAggregator())
+				.splitter(stepExecutionSplitter(null))
+				.aggregator(stepExecutionAggregator())
 				.build();
+	}
+
+	// This is configured by default, but I want to make it explicit to show the splitter/aggregator APIs used together
+	@Bean
+	public SimpleStepExecutionSplitter stepExecutionSplitter(JobRepository jobRepository) {
+		SimpleStepExecutionSplitter stepExecutionSplitter = new SimpleStepExecutionSplitter();
+		stepExecutionSplitter.setPartitioner(partitioner(null));
+		stepExecutionSplitter.setStepName(PARTITIONED_STEP_NAME);
+		stepExecutionSplitter.setJobRepository(jobRepository);
+		return stepExecutionSplitter;
+	}
+
+	@Bean
+	public WordCountAggregator stepExecutionAggregator() {
+		return new WordCountAggregator();
 	}
 
 	@Bean
@@ -93,14 +111,15 @@ public class MapReduceSampleJob {
 	}
 
 	@Bean
-	public ItemWriter<String> itemWriter() {
-		return items -> { };
+	@StepScope
+	public WordCountItemWriter itemWriter() {
+		return new WordCountItemWriter();
 	}
 
 	@Bean
 	public Step wordCountStep() {
-		return stepBuilderFactory.get("wordCountStep")
-				.<String, String>chunk(2)
+		return stepBuilderFactory.get(WORKER_STEP_NAME)
+				.<String, WordCount>chunk(CHUNK_SIZE)
 				.reader(itemReader(null))
 				.processor(itemProcessor())
 				.writer(itemWriter())
