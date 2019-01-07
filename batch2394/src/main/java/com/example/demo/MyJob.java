@@ -51,9 +51,8 @@ public class MyJob {
 		SqlPagingQueryProviderFactoryBean factoryBean = new SqlPagingQueryProviderFactoryBean();
 		factoryBean.setDataSource(dataSource);
 		factoryBean.setDatabaseType(String.valueOf(DatabaseType.MYSQL)); // to verify
-		factoryBean.setSelectClause("select p.person_id, p.name, a.address_id, a.name");
-		factoryBean.setFromClause("from PERSON p, ADDRESS a");
-		factoryBean.setWhereClause("where p.address_id = a.address_id");
+		factoryBean.setSelectClause("select p.*, a.name");
+		factoryBean.setFromClause("from PERSON as p JOIN ADDRESS as a on p.address_id = a.address_id");
 		factoryBean.setSortKey("p.name");
 		reader.setQueryProvider(factoryBean.getObject());
 		reader.setRowMapper((resultSet, i) -> {
