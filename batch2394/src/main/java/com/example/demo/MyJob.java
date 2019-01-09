@@ -51,9 +51,9 @@ public class MyJob {
 		SqlPagingQueryProviderFactoryBean factoryBean = new SqlPagingQueryProviderFactoryBean();
 		factoryBean.setDataSource(dataSource);
 		factoryBean.setDatabaseType(DatabaseType.DB2.name());
-		factoryBean.setSelectClause("select p.*, a.name");
+		factoryBean.setSelectClause("select p.*"); // can add ", a.name" to test field ambiguity
 		factoryBean.setFromClause("from PERSON as p JOIN ADDRESS as a on p.address_id = a.address_id");
-		factoryBean.setSortKey("p.name");
+		factoryBean.setSortKey("name"); // try to use p.name to remove ambiguity =>
 		reader.setQueryProvider(factoryBean.getObject());
 		reader.setRowMapper((resultSet, i) -> {
 			Person person = new Person();
@@ -61,7 +61,7 @@ public class MyJob {
 			person.setName(resultSet.getString(2));
 			Address address = new Address();
 			address.setId(resultSet.getInt(3));
-			address.setName(resultSet.getString(4));
+//			address.setName(resultSet.getString(4)); // uncomment when adding ", a.name" to selectClause
 			person.setAddress(address);
 			return person;
 		});

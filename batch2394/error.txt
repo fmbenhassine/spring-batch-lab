@@ -1,0 +1,169 @@
+when I run the query:
+
+```sql
+SELECT p.* FROM PERSON as p JOIN ADDRESS as a on p.address_id = a.address_id WHERE (name > 'foo') ORDER BY name ASC FETCH FIRST 2 ROWS ONLY
+```
+
+from intellij's db client, I get:
+
+```
+[42702][-203] A reference to column "NAME" is ambiguous.. SQLCODE=-203, SQLSTATE=42702, DRIVER=4.23.42 [56098][-727]
+An error occurred during implicit system action type "2". Information returned for the error includes SQLCODE "-203", SQLSTATE "42702" and message tokens "NAME".. SQLCODE=-727, SQLSTATE=56098, DRIVER=4.23.42
+```
+
+The error from Java code does not show "A reference to column "NAME" is ambiguous" (which is important to understand the issue)
+even though it has the same SQLCODE=-203 and SQLSTATE=42702 ..
+
+Full log:
+
+/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/bin/java -XX:TieredStopAtLevel=1 -noverify -Dspring.output.ansi.enabled=always -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=62788 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=127.0.0.1 -Dspring.liveBeansView.mbeanDomain -Dspring.application.admin.enabled=true "-javaagent:/Applications/IntelliJ IDEA.app/Contents/lib/idea_rt.jar=62789:/Applications/IntelliJ IDEA.app/Contents/bin" -Dfile.encoding=UTF-8 -classpath /Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/lib/deploy.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/lib/ext/cldrdata.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/lib/ext/dnsns.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/lib/ext/jaccess.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/lib/ext/jfxrt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/lib/ext/localedata.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/lib/ext/nashorn.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/lib/ext/sunec.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/lib/ext/sunjce_provider.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/lib/ext/sunpkcs11.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/lib/ext/zipfs.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/lib/javaws.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/lib/jfxswt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/lib/management-agent.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/lib/plugin.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/lib/ant-javafx.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/lib/dt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/lib/javafx-mx.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/lib/jconsole.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/lib/packager.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/lib/sa-jdi.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/lib/tools.jar:/Users/mbenhassine/projects/benas/sandbox/batch2394/target/classes:/Users/mbenhassine/.m2/repository/org/springframework/boot/spring-boot-starter-batch/1.5.18.RELEASE/spring-boot-starter-batch-1.5.18.RELEASE.jar:/Users/mbenhassine/.m2/repository/org/springframework/boot/spring-boot-starter/1.5.18.RELEASE/spring-boot-starter-1.5.18.RELEASE.jar:/Users/mbenhassine/.m2/repository/org/springframework/boot/spring-boot/1.5.18.RELEASE/spring-boot-1.5.18.RELEASE.jar:/Users/mbenhassine/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/1.5.18.RELEASE/spring-boot-autoconfigure-1.5.18.RELEASE.jar:/Users/mbenhassine/.m2/repository/org/springframework/boot/spring-boot-starter-logging/1.5.18.RELEASE/spring-boot-starter-logging-1.5.18.RELEASE.jar:/Users/mbenhassine/.m2/repository/ch/qos/logback/logback-classic/1.1.11/logback-classic-1.1.11.jar:/Users/mbenhassine/.m2/repository/ch/qos/logback/logback-core/1.1.11/logback-core-1.1.11.jar:/Users/mbenhassine/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:/Users/mbenhassine/.m2/repository/org/slf4j/jcl-over-slf4j/1.7.25/jcl-over-slf4j-1.7.25.jar:/Users/mbenhassine/.m2/repository/org/slf4j/jul-to-slf4j/1.7.25/jul-to-slf4j-1.7.25.jar:/Users/mbenhassine/.m2/repository/org/slf4j/log4j-over-slf4j/1.7.25/log4j-over-slf4j-1.7.25.jar:/Users/mbenhassine/.m2/repository/org/springframework/spring-core/4.3.21.RELEASE/spring-core-4.3.21.RELEASE.jar:/Users/mbenhassine/.m2/repository/org/yaml/snakeyaml/1.17/snakeyaml-1.17.jar:/Users/mbenhassine/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc/1.5.18.RELEASE/spring-boot-starter-jdbc-1.5.18.RELEASE.jar:/Users/mbenhassine/.m2/repository/org/apache/tomcat/tomcat-jdbc/8.5.35/tomcat-jdbc-8.5.35.jar:/Users/mbenhassine/.m2/repository/org/apache/tomcat/tomcat-juli/8.5.35/tomcat-juli-8.5.35.jar:/Users/mbenhassine/.m2/repository/org/springframework/spring-jdbc/4.3.21.RELEASE/spring-jdbc-4.3.21.RELEASE.jar:/Users/mbenhassine/.m2/repository/org/springframework/batch/spring-batch-core/3.0.9.RELEASE/spring-batch-core-3.0.9.RELEASE.jar:/Users/mbenhassine/.m2/repository/com/ibm/jbatch/com.ibm.jbatch-tck-spi/1.0/com.ibm.jbatch-tck-spi-1.0.jar:/Users/mbenhassine/.m2/repository/javax/batch/javax.batch-api/1.0/javax.batch-api-1.0.jar:/Users/mbenhassine/.m2/repository/com/thoughtworks/xstream/xstream/1.4.7/xstream-1.4.7.jar:/Users/mbenhassine/.m2/repository/xmlpull/xmlpull/1.1.3.1/xmlpull-1.1.3.1.jar:/Users/mbenhassine/.m2/repository/xpp3/xpp3_min/1.1.4c/xpp3_min-1.1.4c.jar:/Users/mbenhassine/.m2/repository/org/codehaus/jettison/jettison/1.2/jettison-1.2.jar:/Users/mbenhassine/.m2/repository/org/springframework/batch/spring-batch-infrastructure/3.0.9.RELEASE/spring-batch-infrastructure-3.0.9.RELEASE.jar:/Users/mbenhassine/.m2/repository/org/springframework/retry/spring-retry/1.2.2.RELEASE/spring-retry-1.2.2.RELEASE.jar:/Users/mbenhassine/.m2/repository/org/springframework/spring-aop/4.3.21.RELEASE/spring-aop-4.3.21.RELEASE.jar:/Users/mbenhassine/.m2/repository/org/springframework/spring-beans/4.3.21.RELEASE/spring-beans-4.3.21.RELEASE.jar:/Users/mbenhassine/.m2/repository/org/springframework/spring-context/4.3.21.RELEASE/spring-context-4.3.21.RELEASE.jar:/Users/mbenhassine/.m2/repository/org/springframework/spring-expression/4.3.21.RELEASE/spring-expression-4.3.21.RELEASE.jar:/Users/mbenhassine/.m2/repository/org/springframework/spring-tx/4.3.21.RELEASE/spring-tx-4.3.21.RELEASE.jar:/Users/mbenhassine/.m2/repository/com/ibm/db2/jcc/db2jcc4/10.1/db2jcc4-10.1.jar com.example.demo.DemoApplication
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::       (v1.5.18.RELEASE)
+
+2019-01-09 15:11:09.694  INFO 83298 --- [           main] com.example.demo.DemoApplication         : Starting DemoApplication on Mahmouds-MBP.local with PID 83298 (/Users/mbenhassine/projects/benas/sandbox/batch2394/target/classes started by mbenhassine in /Users/mbenhassine/projects/benas/sandbox/batch2394)
+2019-01-09 15:11:09.697  INFO 83298 --- [           main] com.example.demo.DemoApplication         : No active profile set, falling back to default profiles: default
+2019-01-09 15:11:09.726  INFO 83298 --- [           main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@59717824: startup date [Wed Jan 09 15:11:09 CET 2019]; root of context hierarchy
+2019-01-09 15:12:00.961  INFO 83298 --- [           main] o.s.jdbc.datasource.init.ScriptUtils     : Executing SQL script from class path resource [org/springframework/batch/core/schema-db2.sql]
+2019-01-09 15:12:01.015  INFO 83298 --- [           main] o.s.jdbc.datasource.init.ScriptUtils     : Executed SQL script from class path resource [org/springframework/batch/core/schema-db2.sql] in 54 ms.
+2019-01-09 15:12:01.103  INFO 83298 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2019-01-09 15:12:01.112  INFO 83298 --- [           main] o.s.b.a.b.JobLauncherCommandLineRunner   : Running default command line with: []
+2019-01-09 15:12:01.112 DEBUG 83298 --- [           main] BatchConfiguration$ReferenceTargetSource : Initializing lazy target object
+2019-01-09 15:12:01.115  INFO 83298 --- [           main] o.s.b.c.r.s.JobRepositoryFactoryBean     : No database type set, using meta data indicating: DB2
+2019-01-09 15:12:01.174  INFO 83298 --- [           main] o.s.b.c.l.support.SimpleJobLauncher      : No TaskExecutor has been set, defaulting to synchronous executor.
+2019-01-09 15:12:01.302 DEBUG 83298 --- [           main] BatchConfiguration$ReferenceTargetSource : Initializing lazy target object
+2019-01-09 15:12:01.386  INFO 83298 --- [           main] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=job]] launched with the following parameters: [{run.id=8}]
+2019-01-09 15:12:01.386 DEBUG 83298 --- [           main] o.s.batch.core.job.AbstractJob           : Job execution starting: JobExecution: id=336, version=0, startTime=null, endTime=null, lastUpdated=Wed Jan 09 15:12:01 CET 2019, status=STARTING, exitStatus=exitCode=UNKNOWN;exitDescription=, job=[JobInstance: id=65, version=0, Job=[job]], jobParameters=[{run.id=8}]
+2019-01-09 15:12:01.388 DEBUG 83298 --- [           main] BatchConfiguration$ReferenceTargetSource : Initializing lazy target object
+2019-01-09 15:12:01.481  INFO 83298 --- [           main] o.s.batch.core.job.SimpleStepHandler     : Executing step: [step]
+2019-01-09 15:12:01.481 DEBUG 83298 --- [           main] o.s.batch.core.step.AbstractStep         : Executing: id=336
+2019-01-09 15:12:01.506 DEBUG 83298 --- [           main] o.s.batch.repeat.support.RepeatTemplate  : Starting repeat context.
+2019-01-09 15:12:01.506 DEBUG 83298 --- [           main] o.s.batch.repeat.support.RepeatTemplate  : Repeat operation about to start at count=1
+2019-01-09 15:12:01.506 DEBUG 83298 --- [           main] o.s.b.c.s.c.StepContextRepeatCallback    : Preparing chunk execution for StepContext: org.springframework.batch.core.scope.context.StepContext@5d52e3ef
+2019-01-09 15:12:01.506 DEBUG 83298 --- [           main] o.s.b.c.s.c.StepContextRepeatCallback    : Chunk execution starting: queue size=0
+2019-01-09 15:12:01.507 DEBUG 83298 --- [           main] BatchConfiguration$ReferenceTargetSource : Initializing lazy target object
+2019-01-09 15:12:01.508 DEBUG 83298 --- [           main] o.s.batch.repeat.support.RepeatTemplate  : Starting repeat context.
+2019-01-09 15:12:01.509 DEBUG 83298 --- [           main] o.s.batch.repeat.support.RepeatTemplate  : Repeat operation about to start at count=1
+2019-01-09 15:12:01.509 DEBUG 83298 --- [           main] o.s.b.i.database.JdbcPagingItemReader    : Reading page 0
+2019-01-09 15:12:01.509 DEBUG 83298 --- [           main] o.s.b.i.database.JdbcPagingItemReader    : SQL used for reading first page: [SELECT p.* FROM PERSON as p JOIN ADDRESS as a on p.address_id = a.address_id ORDER BY name ASC FETCH FIRST 2 ROWS ONLY]
+2019-01-09 15:12:01.516 DEBUG 83298 --- [           main] o.s.batch.repeat.support.RepeatTemplate  : Repeat operation about to start at count=2
+2019-01-09 15:12:01.516 DEBUG 83298 --- [           main] o.s.batch.repeat.support.RepeatTemplate  : Repeat is complete according to policy and result value.
+item = Person{id=2, name='bar', address=Address{id=2, name='null'}}
+item = Person{id=1, name='foo', address=Address{id=1, name='null'}}
+2019-01-09 15:12:01.516 DEBUG 83298 --- [           main] o.s.b.c.step.item.ChunkOrientedTasklet   : Inputs not busy, ended: false
+2019-01-09 15:12:01.517 DEBUG 83298 --- [           main] o.s.batch.core.step.tasklet.TaskletStep  : Applying contribution: [StepContribution: read=2, written=2, filtered=0, readSkips=0, writeSkips=0, processSkips=0, exitStatus=EXECUTING]
+2019-01-09 15:12:01.520 DEBUG 83298 --- [           main] o.s.batch.core.step.tasklet.TaskletStep  : Saving step execution before commit: StepExecution: id=336, version=1, name=step, status=STARTED, exitStatus=EXECUTING, readCount=2, filterCount=0, writeCount=2 readSkipCount=0, writeSkipCount=0, processSkipCount=0, commitCount=1, rollbackCount=0, exitDescription=
+2019-01-09 15:12:01.530 DEBUG 83298 --- [           main] o.s.batch.repeat.support.RepeatTemplate  : Repeat operation about to start at count=2
+2019-01-09 15:12:01.530 DEBUG 83298 --- [           main] o.s.b.c.s.c.StepContextRepeatCallback    : Preparing chunk execution for StepContext: org.springframework.batch.core.scope.context.StepContext@5d52e3ef
+2019-01-09 15:12:01.530 DEBUG 83298 --- [           main] o.s.b.c.s.c.StepContextRepeatCallback    : Chunk execution starting: queue size=0
+2019-01-09 15:12:01.530 DEBUG 83298 --- [           main] o.s.batch.repeat.support.RepeatTemplate  : Starting repeat context.
+2019-01-09 15:12:01.530 DEBUG 83298 --- [           main] o.s.batch.repeat.support.RepeatTemplate  : Repeat operation about to start at count=1
+2019-01-09 15:12:01.530 DEBUG 83298 --- [           main] o.s.b.i.database.JdbcPagingItemReader    : Reading page 1
+2019-01-09 15:12:01.530 DEBUG 83298 --- [           main] o.s.b.i.database.JdbcPagingItemReader    : SQL used for reading remaining pages: [SELECT p.* FROM PERSON as p JOIN ADDRESS as a on p.address_id = a.address_id WHERE ((name > ?)) ORDER BY name ASC FETCH FIRST 2 ROWS ONLY]
+2019-01-09 15:12:01.530 DEBUG 83298 --- [           main] o.s.b.i.database.JdbcPagingItemReader    : Using parameterList:[foo]
+2019-01-09 15:12:01.536  INFO 83298 --- [           main] o.s.b.f.xml.XmlBeanDefinitionReader      : Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2019-01-09 15:12:01.611 DEBUG 83298 --- [           main] o.s.b.c.step.item.SimpleChunkProvider    : PreparedStatementCallback; bad SQL grammar [SELECT p.* FROM PERSON as p JOIN ADDRESS as a on p.address_id = a.address_id WHERE ((name > ?)) ORDER BY name ASC FETCH FIRST 2 ROWS ONLY]; nested exception is com.ibm.db2.jcc.am.SqlSyntaxErrorException: DB2 SQL Error: SQLCODE=-203, SQLSTATE=42702, SQLERRMC=NAME, DRIVER=4.13.127 : org.springframework.jdbc.BadSqlGrammarException
+2019-01-09 15:12:01.612 DEBUG 83298 --- [           main] o.s.batch.repeat.support.RepeatTemplate  : Handling exception: org.springframework.jdbc.BadSqlGrammarException, caused by: org.springframework.jdbc.BadSqlGrammarException: PreparedStatementCallback; bad SQL grammar [SELECT p.* FROM PERSON as p JOIN ADDRESS as a on p.address_id = a.address_id WHERE ((name > ?)) ORDER BY name ASC FETCH FIRST 2 ROWS ONLY]; nested exception is com.ibm.db2.jcc.am.SqlSyntaxErrorException: DB2 SQL Error: SQLCODE=-203, SQLSTATE=42702, SQLERRMC=NAME, DRIVER=4.13.127
+2019-01-09 15:12:01.612 DEBUG 83298 --- [           main] o.s.batch.repeat.support.RepeatTemplate  : Handling fatal exception explicitly (rethrowing first of 1): org.springframework.jdbc.BadSqlGrammarException: PreparedStatementCallback; bad SQL grammar [SELECT p.* FROM PERSON as p JOIN ADDRESS as a on p.address_id = a.address_id WHERE ((name > ?)) ORDER BY name ASC FETCH FIRST 2 ROWS ONLY]; nested exception is com.ibm.db2.jcc.am.SqlSyntaxErrorException: DB2 SQL Error: SQLCODE=-203, SQLSTATE=42702, SQLERRMC=NAME, DRIVER=4.13.127
+2019-01-09 15:12:01.613 DEBUG 83298 --- [           main] o.s.batch.core.step.tasklet.TaskletStep  : Applying contribution: [StepContribution: read=0, written=0, filtered=0, readSkips=0, writeSkips=0, processSkips=0, exitStatus=EXECUTING]
+2019-01-09 15:12:01.613 DEBUG 83298 --- [           main] o.s.batch.core.step.tasklet.TaskletStep  : Rollback for RuntimeException: org.springframework.jdbc.BadSqlGrammarException: PreparedStatementCallback; bad SQL grammar [SELECT p.* FROM PERSON as p JOIN ADDRESS as a on p.address_id = a.address_id WHERE ((name > ?)) ORDER BY name ASC FETCH FIRST 2 ROWS ONLY]; nested exception is com.ibm.db2.jcc.am.SqlSyntaxErrorException: DB2 SQL Error: SQLCODE=-203, SQLSTATE=42702, SQLERRMC=NAME, DRIVER=4.13.127
+2019-01-09 15:12:01.616 DEBUG 83298 --- [           main] o.s.batch.repeat.support.RepeatTemplate  : Handling exception: org.springframework.jdbc.BadSqlGrammarException, caused by: org.springframework.jdbc.BadSqlGrammarException: PreparedStatementCallback; bad SQL grammar [SELECT p.* FROM PERSON as p JOIN ADDRESS as a on p.address_id = a.address_id WHERE ((name > ?)) ORDER BY name ASC FETCH FIRST 2 ROWS ONLY]; nested exception is com.ibm.db2.jcc.am.SqlSyntaxErrorException: DB2 SQL Error: SQLCODE=-203, SQLSTATE=42702, SQLERRMC=NAME, DRIVER=4.13.127
+2019-01-09 15:12:01.616 DEBUG 83298 --- [           main] o.s.batch.repeat.support.RepeatTemplate  : Handling fatal exception explicitly (rethrowing first of 1): org.springframework.jdbc.BadSqlGrammarException: PreparedStatementCallback; bad SQL grammar [SELECT p.* FROM PERSON as p JOIN ADDRESS as a on p.address_id = a.address_id WHERE ((name > ?)) ORDER BY name ASC FETCH FIRST 2 ROWS ONLY]; nested exception is com.ibm.db2.jcc.am.SqlSyntaxErrorException: DB2 SQL Error: SQLCODE=-203, SQLSTATE=42702, SQLERRMC=NAME, DRIVER=4.13.127
+2019-01-09 15:12:01.623 ERROR 83298 --- [           main] o.s.batch.core.step.AbstractStep         : Encountered an error executing step step in job job
+
+org.springframework.jdbc.BadSqlGrammarException: PreparedStatementCallback; bad SQL grammar [SELECT p.* FROM PERSON as p JOIN ADDRESS as a on p.address_id = a.address_id WHERE ((name > ?)) ORDER BY name ASC FETCH FIRST 2 ROWS ONLY]; nested exception is com.ibm.db2.jcc.am.SqlSyntaxErrorException: DB2 SQL Error: SQLCODE=-203, SQLSTATE=42702, SQLERRMC=NAME, DRIVER=4.13.127
+	at org.springframework.jdbc.support.SQLExceptionSubclassTranslator.doTranslate(SQLExceptionSubclassTranslator.java:91) ~[spring-jdbc-4.3.21.RELEASE.jar:4.3.21.RELEASE]
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:73) ~[spring-jdbc-4.3.21.RELEASE.jar:4.3.21.RELEASE]
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:82) ~[spring-jdbc-4.3.21.RELEASE.jar:4.3.21.RELEASE]
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:655) ~[spring-jdbc-4.3.21.RELEASE.jar:4.3.21.RELEASE]
+	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:690) ~[spring-jdbc-4.3.21.RELEASE.jar:4.3.21.RELEASE]
+	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:722) ~[spring-jdbc-4.3.21.RELEASE.jar:4.3.21.RELEASE]
+	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:732) ~[spring-jdbc-4.3.21.RELEASE.jar:4.3.21.RELEASE]
+	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:782) ~[spring-jdbc-4.3.21.RELEASE.jar:4.3.21.RELEASE]
+	at org.springframework.batch.item.database.JdbcPagingItemReader.doReadPage(JdbcPagingItemReader.java:223) ~[spring-batch-infrastructure-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.batch.item.database.AbstractPagingItemReader.doRead(AbstractPagingItemReader.java:108) ~[spring-batch-infrastructure-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.batch.item.support.AbstractItemCountingItemStreamItemReader.read(AbstractItemCountingItemStreamItemReader.java:88) ~[spring-batch-infrastructure-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.batch.core.step.item.SimpleChunkProvider.doRead(SimpleChunkProvider.java:91) ~[spring-batch-core-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.batch.core.step.item.SimpleChunkProvider.read(SimpleChunkProvider.java:157) ~[spring-batch-core-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.batch.core.step.item.SimpleChunkProvider$1.doInIteration(SimpleChunkProvider.java:116) ~[spring-batch-core-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.batch.repeat.support.RepeatTemplate.getNextResult(RepeatTemplate.java:374) ~[spring-batch-infrastructure-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.batch.repeat.support.RepeatTemplate.executeInternal(RepeatTemplate.java:215) ~[spring-batch-infrastructure-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.batch.repeat.support.RepeatTemplate.iterate(RepeatTemplate.java:144) ~[spring-batch-infrastructure-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.batch.core.step.item.SimpleChunkProvider.provide(SimpleChunkProvider.java:110) ~[spring-batch-core-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.batch.core.step.item.ChunkOrientedTasklet.execute(ChunkOrientedTasklet.java:69) ~[spring-batch-core-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.batch.core.step.tasklet.TaskletStep$ChunkTransactionCallback.doInTransaction(TaskletStep.java:406) ~[spring-batch-core-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.batch.core.step.tasklet.TaskletStep$ChunkTransactionCallback.doInTransaction(TaskletStep.java:330) ~[spring-batch-core-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:133) ~[spring-tx-4.3.21.RELEASE.jar:4.3.21.RELEASE]
+	at org.springframework.batch.core.step.tasklet.TaskletStep$2.doInChunkContext(TaskletStep.java:272) ~[spring-batch-core-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.batch.core.scope.context.StepContextRepeatCallback.doInIteration(StepContextRepeatCallback.java:81) ~[spring-batch-core-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.batch.repeat.support.RepeatTemplate.getNextResult(RepeatTemplate.java:374) ~[spring-batch-infrastructure-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.batch.repeat.support.RepeatTemplate.executeInternal(RepeatTemplate.java:215) ~[spring-batch-infrastructure-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.batch.repeat.support.RepeatTemplate.iterate(RepeatTemplate.java:144) ~[spring-batch-infrastructure-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.batch.core.step.tasklet.TaskletStep.doExecute(TaskletStep.java:257) ~[spring-batch-core-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.batch.core.step.AbstractStep.execute(AbstractStep.java:200) ~[spring-batch-core-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.batch.core.job.SimpleStepHandler.handleStep(SimpleStepHandler.java:148) [spring-batch-core-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.batch.core.job.AbstractJob.handleStep(AbstractJob.java:392) [spring-batch-core-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.batch.core.job.SimpleJob.doExecute(SimpleJob.java:135) [spring-batch-core-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.batch.core.job.AbstractJob.execute(AbstractJob.java:306) [spring-batch-core-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.batch.core.launch.support.SimpleJobLauncher$1.run(SimpleJobLauncher.java:135) [spring-batch-core-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.core.task.SyncTaskExecutor.execute(SyncTaskExecutor.java:50) [spring-core-4.3.21.RELEASE.jar:4.3.21.RELEASE]
+	at org.springframework.batch.core.launch.support.SimpleJobLauncher.run(SimpleJobLauncher.java:128) [spring-batch-core-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_161]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_161]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_161]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_161]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:333) [spring-aop-4.3.21.RELEASE.jar:4.3.21.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) [spring-aop-4.3.21.RELEASE.jar:4.3.21.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157) [spring-aop-4.3.21.RELEASE.jar:4.3.21.RELEASE]
+	at org.springframework.batch.core.configuration.annotation.SimpleBatchConfiguration$PassthruAdvice.invoke(SimpleBatchConfiguration.java:127) [spring-batch-core-3.0.9.RELEASE.jar:3.0.9.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) [spring-aop-4.3.21.RELEASE.jar:4.3.21.RELEASE]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:213) [spring-aop-4.3.21.RELEASE.jar:4.3.21.RELEASE]
+	at com.sun.proxy.$Proxy43.run(Unknown Source) [na:na]
+	at org.springframework.boot.autoconfigure.batch.JobLauncherCommandLineRunner.execute(JobLauncherCommandLineRunner.java:211) [spring-boot-autoconfigure-1.5.18.RELEASE.jar:1.5.18.RELEASE]
+	at org.springframework.boot.autoconfigure.batch.JobLauncherCommandLineRunner.executeLocalJobs(JobLauncherCommandLineRunner.java:227) [spring-boot-autoconfigure-1.5.18.RELEASE.jar:1.5.18.RELEASE]
+	at org.springframework.boot.autoconfigure.batch.JobLauncherCommandLineRunner.launchJobFromProperties(JobLauncherCommandLineRunner.java:123) [spring-boot-autoconfigure-1.5.18.RELEASE.jar:1.5.18.RELEASE]
+	at org.springframework.boot.autoconfigure.batch.JobLauncherCommandLineRunner.run(JobLauncherCommandLineRunner.java:117) [spring-boot-autoconfigure-1.5.18.RELEASE.jar:1.5.18.RELEASE]
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:732) [spring-boot-1.5.18.RELEASE.jar:1.5.18.RELEASE]
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:716) [spring-boot-1.5.18.RELEASE.jar:1.5.18.RELEASE]
+	at org.springframework.boot.SpringApplication.afterRefresh(SpringApplication.java:703) [spring-boot-1.5.18.RELEASE.jar:1.5.18.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:304) [spring-boot-1.5.18.RELEASE.jar:1.5.18.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1118) [spring-boot-1.5.18.RELEASE.jar:1.5.18.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1107) [spring-boot-1.5.18.RELEASE.jar:1.5.18.RELEASE]
+	at com.example.demo.DemoApplication.main(DemoApplication.java:10) [classes/:na]
+Caused by: com.ibm.db2.jcc.am.SqlSyntaxErrorException: DB2 SQL Error: SQLCODE=-203, SQLSTATE=42702, SQLERRMC=NAME, DRIVER=4.13.127
+	at com.ibm.db2.jcc.am.id.a(id.java:677) ~[db2jcc4-10.1.jar:na]
+	at com.ibm.db2.jcc.am.id.a(id.java:60) ~[db2jcc4-10.1.jar:na]
+	at com.ibm.db2.jcc.am.id.a(id.java:127) ~[db2jcc4-10.1.jar:na]
+	at com.ibm.db2.jcc.am.no.c(no.java:2653) ~[db2jcc4-10.1.jar:na]
+	at com.ibm.db2.jcc.am.no.d(no.java:2641) ~[db2jcc4-10.1.jar:na]
+	at com.ibm.db2.jcc.am.no.a(no.java:2090) ~[db2jcc4-10.1.jar:na]
+	at com.ibm.db2.jcc.am.oo.a(oo.java:7671) ~[db2jcc4-10.1.jar:na]
+	at com.ibm.db2.jcc.t4.cb.h(cb.java:141) ~[db2jcc4-10.1.jar:na]
+	at com.ibm.db2.jcc.t4.cb.b(cb.java:41) ~[db2jcc4-10.1.jar:na]
+	at com.ibm.db2.jcc.t4.q.a(q.java:32) ~[db2jcc4-10.1.jar:na]
+	at com.ibm.db2.jcc.t4.sb.i(sb.java:135) ~[db2jcc4-10.1.jar:na]
+	at com.ibm.db2.jcc.am.no.ib(no.java:2059) ~[db2jcc4-10.1.jar:na]
+	at com.ibm.db2.jcc.am.oo.sc(oo.java:3559) ~[db2jcc4-10.1.jar:na]
+	at com.ibm.db2.jcc.am.oo.b(oo.java:4348) ~[db2jcc4-10.1.jar:na]
+	at com.ibm.db2.jcc.am.oo.fc(oo.java:743) ~[db2jcc4-10.1.jar:na]
+	at com.ibm.db2.jcc.am.oo.executeQuery(oo.java:713) ~[db2jcc4-10.1.jar:na]
+	at sun.reflect.GeneratedMethodAccessor22.invoke(Unknown Source) ~[na:na]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_161]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_161]
+	at org.apache.tomcat.jdbc.pool.StatementFacade$StatementProxy.invoke(StatementFacade.java:114) ~[tomcat-jdbc-8.5.35.jar:na]
+	at com.sun.proxy.$Proxy56.executeQuery(Unknown Source) ~[na:na]
+	at org.springframework.jdbc.core.JdbcTemplate$1.doInPreparedStatement(JdbcTemplate.java:698) ~[spring-jdbc-4.3.21.RELEASE.jar:4.3.21.RELEASE]
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:639) ~[spring-jdbc-4.3.21.RELEASE.jar:4.3.21.RELEASE]
+	... 54 common frames omitted
+
+2019-01-09 15:12:01.670  INFO 83298 --- [           main] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=job]] completed with the following parameters: [{run.id=8}] and the following status: [FAILED]
+2019-01-09 15:12:01.673  INFO 83298 --- [           main] com.example.demo.DemoApplication         : Started DemoApplication in 62.154 seconds (JVM running for 67.604)
+2019-01-09 15:12:01.673  INFO 83298 --- [     Thread-123] s.c.a.AnnotationConfigApplicationContext : Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@59717824: startup date [Wed Jan 09 15:11:09 CET 2019]; root of context hierarchy
+2019-01-09 15:12:01.675  INFO 83298 --- [     Thread-123] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+
+Process finished with exit code 0
