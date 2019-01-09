@@ -52,7 +52,7 @@ public class MyJob {
 		factoryBean.setDataSource(dataSource);
 		factoryBean.setDatabaseType(DatabaseType.DB2.name());
 		factoryBean.setSelectClause("select p.*"); // can add ", a.name" to test field ambiguity
-		factoryBean.setFromClause("from PERSON as p JOIN ADDRESS as a on p.address_id = a.address_id");
+		factoryBean.setFromClause("from PERSON as p JOIN ADDRESS as a on a.address_id = p.address_id");
 		factoryBean.setSortKey("name"); // try to use p.name to remove ambiguity =>
 		reader.setQueryProvider(factoryBean.getObject());
 		reader.setRowMapper((resultSet, i) -> {
