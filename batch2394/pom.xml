@@ -18,15 +18,38 @@
 		<java.version>1.8</java.version>
 	</properties>
 
+	<repositories>
+		<!-- for com.ibm.db2.jcc artifacts-->
+		<repository>
+			<id>alfresco</id>
+			<url>https://artifacts.alfresco.com/nexus/content/repositories/public/</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-batch</artifactId>
 		</dependency>
 
+		<!-- Apply PR, build locally and import snapshot version-->
+
+		<!--<dependency>-->
+		<!--<groupId>org.springframework.batch</groupId>-->
+		<!--<artifactId>spring-batch-core</artifactId>-->
+		<!--<version>3.0.10.BUILD-SNAPSHOT</version>-->
+		<!--</dependency>-->
+
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.batch</groupId>-->
+			<!--<artifactId>spring-batch-infrastructure</artifactId>-->
+			<!--<version>3.0.10.BUILD-SNAPSHOT</version>-->
+		<!--</dependency>-->
+
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
+			<groupId>com.ibm.db2.jcc</groupId>
+			<artifactId>db2jcc4</artifactId>
+			<version>10.1</version>
 		</dependency>
 	</dependencies>
 

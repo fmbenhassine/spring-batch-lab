@@ -1,3 +1,5 @@
+-- works as-is for both mysql and db2
+
 CREATE TABLE PERSON
 (
   person_id INT NOT NULL PRIMARY KEY,
