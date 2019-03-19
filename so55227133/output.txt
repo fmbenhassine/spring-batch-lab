@@ -1,0 +1,66 @@
+Result:
+-------
+
+* SimpleAsyncTaskExecutor-1 reads from 1 to 5 as expected
+* SimpleAsyncTaskExecutor-2 reads from 6 to 15 which is incorrect (it should read from 5 to 10 only)
+* SimpleAsyncTaskExecutor-3 reads from 11 to 15 as expected
+
+Output:
+-------
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.1.0.RELEASE)
+
+2019-03-19 09:45:54.508  INFO 51867 --- [           main] com.example.demo.DemoApplication         : Starting DemoApplication on localhost with PID 51867 (/sandbox/so55227133/target/classes started by mbenhassine in /sandbox/so55227133)
+2019-03-19 09:45:54.511  INFO 51867 --- [           main] com.example.demo.DemoApplication         : No active profile set, falling back to default profiles: default
+2019-03-19 09:45:55.210  INFO 51867 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-03-19 09:45:55.293  INFO 51867 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-03-19 09:45:55.301  INFO 51867 --- [           main] o.s.b.c.r.s.JobRepositoryFactoryBean     : No database type set, using meta data indicating: H2
+2019-03-19 09:45:55.379  INFO 51867 --- [           main] o.s.b.c.l.support.SimpleJobLauncher      : No TaskExecutor has been set, defaulting to synchronous executor.
+2019-03-19 09:45:55.528  INFO 51867 --- [           main] com.example.demo.DemoApplication         : Started DemoApplication in 1.217 seconds (JVM running for 1.734)
+2019-03-19 09:45:55.529  INFO 51867 --- [           main] o.s.b.a.b.JobLauncherCommandLineRunner   : Running default command line with: []
+2019-03-19 09:45:55.580  INFO 51867 --- [           main] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=job]] launched with the following parameters: [{}]
+2019-03-19 09:45:55.594  INFO 51867 --- [           main] o.s.batch.core.job.SimpleStepHandler     : Executing step: [masterStep]
+
+Hilo : 1
+Index Inicial : 1
+Index Final : 5
+
+
+Hilo : 2
+Index Inicial : 6
+Index Final : 10
+
+
+Hilo : 3
+Index Inicial : 11
+Index Final : 16
+
+SimpleAsyncTaskExecutor-2 writing item = foo6
+SimpleAsyncTaskExecutor-3 writing item = foo11
+SimpleAsyncTaskExecutor-1 writing item = foo1
+SimpleAsyncTaskExecutor-2 writing item = foo7
+SimpleAsyncTaskExecutor-3 writing item = foo12
+SimpleAsyncTaskExecutor-1 writing item = foo2
+SimpleAsyncTaskExecutor-2 writing item = foo8
+SimpleAsyncTaskExecutor-1 writing item = foo3
+SimpleAsyncTaskExecutor-3 writing item = foo13
+SimpleAsyncTaskExecutor-2 writing item = foo9
+SimpleAsyncTaskExecutor-3 writing item = foo14
+SimpleAsyncTaskExecutor-1 writing item = foo4
+SimpleAsyncTaskExecutor-3 writing item = foo15
+SimpleAsyncTaskExecutor-1 writing item = foo5
+SimpleAsyncTaskExecutor-2 writing item = foo10
+SimpleAsyncTaskExecutor-2 writing item = foo11
+SimpleAsyncTaskExecutor-2 writing item = foo12
+SimpleAsyncTaskExecutor-2 writing item = foo13
+SimpleAsyncTaskExecutor-2 writing item = foo14
+SimpleAsyncTaskExecutor-2 writing item = foo15
+2019-03-19 09:45:55.692  INFO 51867 --- [           main] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=job]] completed with the following parameters: [{}] and the following status: [COMPLETED]
+2019-03-19 09:45:55.696  INFO 51867 --- [       Thread-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-03-19 09:45:55.700  INFO 51867 --- [       Thread-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
