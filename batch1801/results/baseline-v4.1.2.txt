@@ -1,0 +1,51 @@
+# JMH version: 1.21
+# VM version: JDK 1.8.0_201, Java HotSpot(TM) 64-Bit Server VM, 25.201-b09
+# VM invoker: /Users/mbenhassine/.sdkman/candidates/java/8.0.201-oracle/jre/bin/java
+# VM options: <none>
+# Warmup: 10 iterations, 1 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.springframework.batch.performance.benchmarks.BeanWrapperFieldSetMapperBenchmark.performanceTestOfBeanWrapperFieldSetMapperWithoutFuzzyMatching
+
+# Run progress: 0.00% complete, ETA 00:00:20
+# Fork: 1 of 1
+# Warmup Iteration   1: 22.573 ops/ms
+# Warmup Iteration   2: 31.670 ops/ms
+# Warmup Iteration   3: 34.675 ops/ms
+# Warmup Iteration   4: 40.295 ops/ms
+# Warmup Iteration   5: 40.626 ops/ms
+# Warmup Iteration   6: 41.902 ops/ms
+# Warmup Iteration   7: 42.009 ops/ms
+# Warmup Iteration   8: 40.930 ops/ms
+# Warmup Iteration   9: 40.722 ops/ms
+# Warmup Iteration  10: 39.996 ops/ms
+Iteration   1: 40.333 ops/ms
+Iteration   2: 40.593 ops/ms
+Iteration   3: 40.169 ops/ms
+Iteration   4: 40.876 ops/ms
+Iteration   5: 40.585 ops/ms
+Iteration   6: 40.540 ops/ms
+Iteration   7: 39.083 ops/ms
+Iteration   8: 40.380 ops/ms
+Iteration   9: 40.336 ops/ms
+Iteration  10: 40.112 ops/ms
+
+
+Result "org.springframework.batch.performance.benchmarks.BeanWrapperFieldSetMapperBenchmark.performanceTestOfBeanWrapperFieldSetMapperWithoutFuzzyMatching":
+  40.301 ±(99.9%) 0.730 ops/ms [Average]
+  (min, avg, max) = (39.083, 40.301, 40.876), stdev = 0.483
+  CI (99.9%): [39.571, 41.031] (assumes normal distribution)
+
+
+# Run complete. Total time: 00:00:20
+
+REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+experiments, perform baseline and negative tests that provide experimental control, make sure
+the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+Do not assume the numbers tell you what you want them to tell.
+
+Benchmark                                                                                           Mode  Cnt   Score   Error   Units
+BeanWrapperFieldSetMapperBenchmark.performanceTestOfBeanWrapperFieldSetMapperWithoutFuzzyMatching  thrpt   10  40.301 ± 0.730  ops/ms
