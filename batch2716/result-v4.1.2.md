@@ -1,4 +1,4 @@
-### First execution (19s)
+### 1. First execution (19s, that's ok since the db is empty)
 
 ```
   .   ____          _            __ _ _
@@ -27,7 +27,7 @@
 2019-07-09 10:16:01.468  INFO 19035 --- [       Thread-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
 ```
 
-### Second execution (20min4s)
+### 2. Second execution (20min4s 😱)
 
 ```
   .   ____          _            __ _ _
