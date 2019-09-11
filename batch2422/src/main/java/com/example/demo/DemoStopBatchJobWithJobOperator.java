@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import javax.sql.DataSource;
-import javax.xml.crypto.Data;
 
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobInstance;
@@ -21,10 +20,10 @@ import org.springframework.jdbc.support.incrementer.H2SequenceMaxValueIncremente
 import org.springframework.util.StopWatch;
 
 @SpringBootApplication
-public class DemoStopBatchJob {
+public class DemoStopBatchJobWithJobOperator {
 
 	public static void main(String[] args) throws Exception {
-		ConfigurableApplicationContext context = SpringApplication.run(DemoStopBatchJob.class, args);
+		ConfigurableApplicationContext context = SpringApplication.run(DemoStopBatchJobWithJobOperator.class, args);
 		JobOperator jobOperator = context.getBean(JobOperator.class);
 
 		// Try to stop a running execution
@@ -36,6 +35,13 @@ public class DemoStopBatchJob {
 //		System.out.println(stopWatch.prettyPrint());
 		// Even if this fails with (Job execution should be running to be stopped,
 		// the call to GET_JOB_FROM_EXECUTION_ID is still executed
+
+		// output
+//		StopWatch '': running time (millis) = 67
+//		-----------------------------------------
+//		ms     %     Task name
+//		-----------------------------------------
+//		00067  100%  stopping job execution
 
 		// Try to isolate the call that uses GET_JOB_FROM_EXECUTION_ID
 
@@ -54,6 +60,13 @@ public class DemoStopBatchJob {
 		stopWatch.stop();
 		System.out.println("jobInstance = " + jobInstance);
 		System.out.println(stopWatch.prettyPrint());
+
+		// output
+//		StopWatch '': running time (millis) = 1
+//		-----------------------------------------
+//		ms     %     Task name
+//		-----------------------------------------
+//		00001  100%  get job instance
 	}
 
 	@Bean

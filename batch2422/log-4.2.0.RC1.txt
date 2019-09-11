@@ -1,0 +1,43 @@
+11:24:01.933 [main] DEBUG org.springframework.context.annotation.AnnotationConfigApplicationContext - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@35a50a4c
+11:24:01.952 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalConfigurationAnnotationProcessor'
+11:24:02.044 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Overriding bean definition for bean 'jobRepository' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.batch.core.configuration.annotation.SimpleBatchConfiguration; factoryMethodName=jobRepository; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/batch/core/configuration/annotation/SimpleBatchConfiguration.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=demoStopBatchJobWithCommandLineJobLauncher; factoryMethodName=jobRepository; initMethodName=null; destroyMethodName=(inferred); defined in com.example.demo2.DemoStopBatchJobWithCommandLineJobLauncher]
+11:24:02.149 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'stepScope'
+11:24:02.152 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'jobScope'
+11:24:02.153 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.event.internalEventListenerProcessor'
+11:24:02.154 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.event.internalEventListenerFactory'
+11:24:02.157 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalAutowiredAnnotationProcessor'
+11:24:02.161 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalCommonAnnotationProcessor'
+11:24:02.171 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'demoStopBatchJobWithCommandLineJobLauncher'
+11:24:02.176 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.batch.core.configuration.annotation.ScopeConfiguration'
+11:24:02.177 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.batch.core.configuration.annotation.SimpleBatchConfiguration'
+11:24:02.187 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'dataSource'
+11:24:02.240 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'jobRepository'
+11:24:02.240 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Autowiring by type from bean name 'jobRepository' via factory method to bean named 'dataSource'
+11:24:02.267 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:24:02.497 [main] INFO org.springframework.batch.core.repository.support.JobRepositoryFactoryBean - No database type set, using meta data indicating: H2
+11:24:02.742 [main] DEBUG org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource - Adding transactional method [*] with attribute [PROPAGATION_REQUIRED,ISOLATION_DEFAULT]
+11:24:02.742 [main] DEBUG org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource - Adding transactional method [create*] with attribute [PROPAGATION_REQUIRES_NEW,ISOLATION_SERIALIZABLE]
+11:24:02.743 [main] DEBUG org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource - Adding transactional method [getLastJobExecution*] with attribute [PROPAGATION_REQUIRES_NEW,ISOLATION_SERIALIZABLE]
+11:24:02.765 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'jobLauncher'
+11:24:02.775 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'jobRegistry'
+11:24:02.779 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'jobExplorer'
+11:24:02.785 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'transactionManager'
+11:24:02.788 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'jobBuilders'
+11:24:02.791 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'stepBuilders'
+11:24:02.831 [main] DEBUG org.springframework.batch.core.configuration.annotation.SimpleBatchConfiguration$ReferenceTargetSource - Initializing lazy target object
+11:24:02.831 [main] WARN org.springframework.batch.core.configuration.annotation.DefaultBatchConfigurer - No transaction manager was provided, using a DataSourceTransactionManager
+11:24:02.831 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:24:02.832 [main] INFO org.springframework.batch.core.repository.support.JobRepositoryFactoryBean - No database type set, using meta data indicating: H2
+11:24:02.832 [main] DEBUG org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource - Adding transactional method [*] with attribute [PROPAGATION_REQUIRED,ISOLATION_DEFAULT]
+11:24:02.832 [main] DEBUG org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource - Adding transactional method [create*] with attribute [PROPAGATION_REQUIRES_NEW,ISOLATION_SERIALIZABLE]
+11:24:02.832 [main] DEBUG org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource - Adding transactional method [getLastJobExecution*] with attribute [PROPAGATION_REQUIRES_NEW,ISOLATION_SERIALIZABLE]
+11:24:02.835 [main] INFO org.springframework.batch.core.launch.support.SimpleJobLauncher - No TaskExecutor has been set, defaulting to synchronous executor.
+11:24:02.843 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:24:02.844 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT E.JOB_EXECUTION_ID, E.START_TIME, E.END_TIME, E.STATUS, E.EXIT_CODE, E.EXIT_MESSAGE, E.CREATE_TIME, E.LAST_UPDATED, E.VERSION, E.JOB_INSTANCE_ID, E.JOB_CONFIGURATION_LOCATION from BATCH_JOB_EXECUTION E, BATCH_JOB_INSTANCE I where E.JOB_INSTANCE_ID=I.JOB_INSTANCE_ID and I.JOB_NAME=? and E.START_TIME is not NULL and E.END_TIME is NULL order by E.JOB_EXECUTION_ID desc]
+11:24:02.844 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:24:04.799 [main] ERROR org.springframework.batch.core.launch.support.CommandLineJobRunner - Job Terminated in error: No running execution found for job=job
+org.springframework.batch.core.launch.JobExecutionNotRunningException: No running execution found for job=job
+	at org.springframework.batch.core.launch.support.CommandLineJobRunner.start(CommandLineJobRunner.java:313)
+	at org.springframework.batch.core.launch.support.CommandLineJobRunner.main(CommandLineJobRunner.java:565)
+	at com.example.demo2.DemoStopBatchJobWithCommandLineJobLauncher.main(DemoStopBatchJobWithCommandLineJobLauncher.java:20)
+11:24:04.800 [main] DEBUG org.springframework.context.annotation.AnnotationConfigApplicationContext - Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@35a50a4c, started on Wed Sep 11 11:24:01 CEST 2019

@@ -1,0 +1,203 @@
+11:27:01.787 [main] DEBUG org.springframework.context.annotation.AnnotationConfigApplicationContext - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@6fb0d3ed
+11:27:01.804 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalConfigurationAnnotationProcessor'
+11:27:01.885 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Overriding bean definition for bean 'jobRepository' with a different definition: replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.batch.core.configuration.annotation.SimpleBatchConfiguration; factoryMethodName=jobRepository; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/batch/core/configuration/annotation/SimpleBatchConfiguration.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=demoStopBatchJobWithCommandLineJobLauncher; factoryMethodName=jobRepository; initMethodName=null; destroyMethodName=(inferred); defined in com.example.demo2.DemoStopBatchJobWithCommandLineJobLauncher]
+11:27:01.974 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'stepScope'
+11:27:01.977 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'jobScope'
+11:27:01.978 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.event.internalEventListenerProcessor'
+11:27:01.979 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.event.internalEventListenerFactory'
+11:27:01.981 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalAutowiredAnnotationProcessor'
+11:27:01.982 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalCommonAnnotationProcessor'
+11:27:01.993 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'demoStopBatchJobWithCommandLineJobLauncher'
+11:27:02.000 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.batch.core.configuration.annotation.ScopeConfiguration'
+11:27:02.001 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.batch.core.configuration.annotation.SimpleBatchConfiguration'
+11:27:02.007 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'dataSource'
+11:27:02.060 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'jobRepository'
+11:27:02.061 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Autowiring by type from bean name 'jobRepository' via factory method to bean named 'dataSource'
+11:27:02.080 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:27:02.298 [main] INFO org.springframework.batch.core.repository.support.JobRepositoryFactoryBean - No database type set, using meta data indicating: H2
+11:27:02.528 [main] DEBUG org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource - Adding transactional method [*] with attribute [PROPAGATION_REQUIRED,ISOLATION_DEFAULT]
+11:27:02.528 [main] DEBUG org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource - Adding transactional method [create*] with attribute [PROPAGATION_REQUIRES_NEW,ISOLATION_SERIALIZABLE]
+11:27:02.528 [main] DEBUG org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource - Adding transactional method [getLastJobExecution*] with attribute [PROPAGATION_REQUIRES_NEW,ISOLATION_SERIALIZABLE]
+11:27:02.563 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'jobLauncher'
+11:27:02.582 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'jobRegistry'
+11:27:02.588 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'jobExplorer'
+11:27:02.593 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'transactionManager'
+11:27:02.598 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'jobBuilders'
+11:27:02.601 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'stepBuilders'
+11:27:02.641 [main] DEBUG org.springframework.batch.core.configuration.annotation.SimpleBatchConfiguration$ReferenceTargetSource - Initializing lazy target object
+11:27:02.641 [main] WARN org.springframework.batch.core.configuration.annotation.DefaultBatchConfigurer - No transaction manager was provided, using a DataSourceTransactionManager
+11:27:02.641 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:27:02.642 [main] INFO org.springframework.batch.core.repository.support.JobRepositoryFactoryBean - No database type set, using meta data indicating: H2
+11:27:02.642 [main] DEBUG org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource - Adding transactional method [*] with attribute [PROPAGATION_REQUIRED,ISOLATION_DEFAULT]
+11:27:02.642 [main] DEBUG org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource - Adding transactional method [create*] with attribute [PROPAGATION_REQUIRES_NEW,ISOLATION_SERIALIZABLE]
+11:27:02.642 [main] DEBUG org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource - Adding transactional method [getLastJobExecution*] with attribute [PROPAGATION_REQUIRES_NEW,ISOLATION_SERIALIZABLE]
+11:27:02.645 [main] INFO org.springframework.batch.core.launch.support.SimpleJobLauncher - No TaskExecutor has been set, defaulting to synchronous executor.
+11:27:02.651 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:27:02.651 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT JOB_INSTANCE_ID, JOB_NAME from BATCH_JOB_INSTANCE where JOB_NAME = ? order by JOB_INSTANCE_ID desc]
+11:27:02.651 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:27:03.371 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:27:03.372 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT JOB_EXECUTION_ID, START_TIME, END_TIME, STATUS, EXIT_CODE, EXIT_MESSAGE, CREATE_TIME, LAST_UPDATED, VERSION, JOB_CONFIGURATION_LOCATION from BATCH_JOB_EXECUTION where JOB_INSTANCE_ID = ? order by JOB_EXECUTION_ID desc]
+11:27:03.372 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:27:03.380 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:27:03.380 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT JOB_EXECUTION_ID, KEY_NAME, TYPE_CD, STRING_VAL, DATE_VAL, LONG_VAL, DOUBLE_VAL, IDENTIFYING from BATCH_JOB_EXECUTION_PARAMS where JOB_EXECUTION_ID = ?]
+11:27:03.380 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:27:03.388 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:27:03.389 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT ji.JOB_INSTANCE_ID, JOB_NAME, JOB_KEY, ji.VERSION from BATCH_JOB_INSTANCE ji, BATCH_JOB_EXECUTION je where JOB_EXECUTION_ID = ? and ji.JOB_INSTANCE_ID = je.JOB_INSTANCE_ID]
+11:27:03.389 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:27:03.391 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:27:03.391 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT STEP_EXECUTION_ID, STEP_NAME, START_TIME, END_TIME, STATUS, COMMIT_COUNT, READ_COUNT, FILTER_COUNT, WRITE_COUNT, EXIT_CODE, EXIT_MESSAGE, READ_SKIP_COUNT, WRITE_SKIP_COUNT, PROCESS_SKIP_COUNT, ROLLBACK_COUNT, LAST_UPDATED, VERSION from BATCH_STEP_EXECUTION where JOB_EXECUTION_ID = ? order by STEP_EXECUTION_ID]
+11:27:03.391 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:27:03.395 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:27:03.395 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT SHORT_CONTEXT, SERIALIZED_CONTEXT FROM BATCH_JOB_EXECUTION_CONTEXT WHERE JOB_EXECUTION_ID = ?]
+11:27:03.395 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:27:03.430 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:27:03.430 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT SHORT_CONTEXT, SERIALIZED_CONTEXT FROM BATCH_STEP_EXECUTION_CONTEXT WHERE STEP_EXECUTION_ID = ?]
+11:27:03.430 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:27:03.433 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:27:03.433 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT JOB_EXECUTION_ID, START_TIME, END_TIME, STATUS, EXIT_CODE, EXIT_MESSAGE, CREATE_TIME, LAST_UPDATED, VERSION, JOB_CONFIGURATION_LOCATION from BATCH_JOB_EXECUTION where JOB_INSTANCE_ID = ? order by JOB_EXECUTION_ID desc]
+11:27:03.433 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:27:03.434 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:27:03.434 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT JOB_EXECUTION_ID, KEY_NAME, TYPE_CD, STRING_VAL, DATE_VAL, LONG_VAL, DOUBLE_VAL, IDENTIFYING from BATCH_JOB_EXECUTION_PARAMS where JOB_EXECUTION_ID = ?]
+11:27:03.434 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:27:03.435 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:27:03.435 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT ji.JOB_INSTANCE_ID, JOB_NAME, JOB_KEY, ji.VERSION from BATCH_JOB_INSTANCE ji, BATCH_JOB_EXECUTION je where JOB_EXECUTION_ID = ? and ji.JOB_INSTANCE_ID = je.JOB_INSTANCE_ID]
+11:27:03.435 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:27:03.435 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:27:03.435 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT STEP_EXECUTION_ID, STEP_NAME, START_TIME, END_TIME, STATUS, COMMIT_COUNT, READ_COUNT, FILTER_COUNT, WRITE_COUNT, EXIT_CODE, EXIT_MESSAGE, READ_SKIP_COUNT, WRITE_SKIP_COUNT, PROCESS_SKIP_COUNT, ROLLBACK_COUNT, LAST_UPDATED, VERSION from BATCH_STEP_EXECUTION where JOB_EXECUTION_ID = ? order by STEP_EXECUTION_ID]
+11:27:03.435 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:27:03.436 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:27:03.436 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT SHORT_CONTEXT, SERIALIZED_CONTEXT FROM BATCH_JOB_EXECUTION_CONTEXT WHERE JOB_EXECUTION_ID = ?]
+11:27:03.436 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:27:03.437 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:27:03.437 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT SHORT_CONTEXT, SERIALIZED_CONTEXT FROM BATCH_STEP_EXECUTION_CONTEXT WHERE STEP_EXECUTION_ID = ?]
+11:27:03.437 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:27:03.438 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:27:03.438 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT JOB_EXECUTION_ID, START_TIME, END_TIME, STATUS, EXIT_CODE, EXIT_MESSAGE, CREATE_TIME, LAST_UPDATED, VERSION, JOB_CONFIGURATION_LOCATION from BATCH_JOB_EXECUTION where JOB_INSTANCE_ID = ? order by JOB_EXECUTION_ID desc]
+11:27:03.438 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:27:03.438 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:27:03.438 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT JOB_EXECUTION_ID, KEY_NAME, TYPE_CD, STRING_VAL, DATE_VAL, LONG_VAL, DOUBLE_VAL, IDENTIFYING from BATCH_JOB_EXECUTION_PARAMS where JOB_EXECUTION_ID = ?]
+11:27:03.438 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:27:03.439 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:27:03.439 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT ji.JOB_INSTANCE_ID, JOB_NAME, JOB_KEY, ji.VERSION from BATCH_JOB_INSTANCE ji, BATCH_JOB_EXECUTION je where JOB_EXECUTION_ID = ? and ji.JOB_INSTANCE_ID = je.JOB_INSTANCE_ID]
+11:27:03.439 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:27:03.440 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:27:03.440 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT STEP_EXECUTION_ID, STEP_NAME, START_TIME, END_TIME, STATUS, COMMIT_COUNT, READ_COUNT, FILTER_COUNT, WRITE_COUNT, EXIT_CODE, EXIT_MESSAGE, READ_SKIP_COUNT, WRITE_SKIP_COUNT, PROCESS_SKIP_COUNT, ROLLBACK_COUNT, LAST_UPDATED, VERSION from BATCH_STEP_EXECUTION where JOB_EXECUTION_ID = ? order by STEP_EXECUTION_ID]
+11:27:03.440 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:27:03.440 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:27:03.440 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT SHORT_CONTEXT, SERIALIZED_CONTEXT FROM BATCH_JOB_EXECUTION_CONTEXT WHERE JOB_EXECUTION_ID = ?]
+11:27:03.440 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:27:03.441 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:27:03.441 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT SHORT_CONTEXT, SERIALIZED_CONTEXT FROM BATCH_STEP_EXECUTION_CONTEXT WHERE STEP_EXECUTION_ID = ?]
+11:27:03.441 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:27:03.442 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:27:03.442 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT JOB_EXECUTION_ID, START_TIME, END_TIME, STATUS, EXIT_CODE, EXIT_MESSAGE, CREATE_TIME, LAST_UPDATED, VERSION, JOB_CONFIGURATION_LOCATION from BATCH_JOB_EXECUTION where JOB_INSTANCE_ID = ? order by JOB_EXECUTION_ID desc]
+11:27:03.442 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:27:03.442 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:27:03.443 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT JOB_EXECUTION_ID, KEY_NAME, TYPE_CD, STRING_VAL, DATE_VAL, LONG_VAL, DOUBLE_VAL, IDENTIFYING from BATCH_JOB_EXECUTION_PARAMS where JOB_EXECUTION_ID = ?]
+11:27:03.443 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:27:03.443 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:27:03.443 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT ji.JOB_INSTANCE_ID, JOB_NAME, JOB_KEY, ji.VERSION from BATCH_JOB_INSTANCE ji, BATCH_JOB_EXECUTION je where JOB_EXECUTION_ID = ? and ji.JOB_INSTANCE_ID = je.JOB_INSTANCE_ID]
+11:27:03.443 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+
+... // same output for 100.000 instances (trimmed manually because the file size is 305MB)
+
+11:28:56.443 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.443 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.443 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT JOB_EXECUTION_ID, START_TIME, END_TIME, STATUS, EXIT_CODE, EXIT_MESSAGE, CREATE_TIME, LAST_UPDATED, VERSION, JOB_CONFIGURATION_LOCATION from BATCH_JOB_EXECUTION where JOB_INSTANCE_ID = ? order by JOB_EXECUTION_ID desc]
+11:28:56.443 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.443 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.443 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT JOB_EXECUTION_ID, KEY_NAME, TYPE_CD, STRING_VAL, DATE_VAL, LONG_VAL, DOUBLE_VAL, IDENTIFYING from BATCH_JOB_EXECUTION_PARAMS where JOB_EXECUTION_ID = ?]
+11:28:56.443 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.444 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.444 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT ji.JOB_INSTANCE_ID, JOB_NAME, JOB_KEY, ji.VERSION from BATCH_JOB_INSTANCE ji, BATCH_JOB_EXECUTION je where JOB_EXECUTION_ID = ? and ji.JOB_INSTANCE_ID = je.JOB_INSTANCE_ID]
+11:28:56.444 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.444 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.444 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT STEP_EXECUTION_ID, STEP_NAME, START_TIME, END_TIME, STATUS, COMMIT_COUNT, READ_COUNT, FILTER_COUNT, WRITE_COUNT, EXIT_CODE, EXIT_MESSAGE, READ_SKIP_COUNT, WRITE_SKIP_COUNT, PROCESS_SKIP_COUNT, ROLLBACK_COUNT, LAST_UPDATED, VERSION from BATCH_STEP_EXECUTION where JOB_EXECUTION_ID = ? order by STEP_EXECUTION_ID]
+11:28:56.444 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.444 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.444 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT SHORT_CONTEXT, SERIALIZED_CONTEXT FROM BATCH_JOB_EXECUTION_CONTEXT WHERE JOB_EXECUTION_ID = ?]
+11:28:56.444 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.444 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.444 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT SHORT_CONTEXT, SERIALIZED_CONTEXT FROM BATCH_STEP_EXECUTION_CONTEXT WHERE STEP_EXECUTION_ID = ?]
+11:28:56.444 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.444 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.444 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT JOB_EXECUTION_ID, START_TIME, END_TIME, STATUS, EXIT_CODE, EXIT_MESSAGE, CREATE_TIME, LAST_UPDATED, VERSION, JOB_CONFIGURATION_LOCATION from BATCH_JOB_EXECUTION where JOB_INSTANCE_ID = ? order by JOB_EXECUTION_ID desc]
+11:28:56.444 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.444 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.444 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT JOB_EXECUTION_ID, KEY_NAME, TYPE_CD, STRING_VAL, DATE_VAL, LONG_VAL, DOUBLE_VAL, IDENTIFYING from BATCH_JOB_EXECUTION_PARAMS where JOB_EXECUTION_ID = ?]
+11:28:56.444 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.445 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.445 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT ji.JOB_INSTANCE_ID, JOB_NAME, JOB_KEY, ji.VERSION from BATCH_JOB_INSTANCE ji, BATCH_JOB_EXECUTION je where JOB_EXECUTION_ID = ? and ji.JOB_INSTANCE_ID = je.JOB_INSTANCE_ID]
+11:28:56.445 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.445 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.445 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT STEP_EXECUTION_ID, STEP_NAME, START_TIME, END_TIME, STATUS, COMMIT_COUNT, READ_COUNT, FILTER_COUNT, WRITE_COUNT, EXIT_CODE, EXIT_MESSAGE, READ_SKIP_COUNT, WRITE_SKIP_COUNT, PROCESS_SKIP_COUNT, ROLLBACK_COUNT, LAST_UPDATED, VERSION from BATCH_STEP_EXECUTION where JOB_EXECUTION_ID = ? order by STEP_EXECUTION_ID]
+11:28:56.445 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.445 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.445 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT SHORT_CONTEXT, SERIALIZED_CONTEXT FROM BATCH_JOB_EXECUTION_CONTEXT WHERE JOB_EXECUTION_ID = ?]
+11:28:56.445 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.445 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.445 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT SHORT_CONTEXT, SERIALIZED_CONTEXT FROM BATCH_STEP_EXECUTION_CONTEXT WHERE STEP_EXECUTION_ID = ?]
+11:28:56.445 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.445 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.445 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT JOB_EXECUTION_ID, START_TIME, END_TIME, STATUS, EXIT_CODE, EXIT_MESSAGE, CREATE_TIME, LAST_UPDATED, VERSION, JOB_CONFIGURATION_LOCATION from BATCH_JOB_EXECUTION where JOB_INSTANCE_ID = ? order by JOB_EXECUTION_ID desc]
+11:28:56.445 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.445 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.445 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT JOB_EXECUTION_ID, KEY_NAME, TYPE_CD, STRING_VAL, DATE_VAL, LONG_VAL, DOUBLE_VAL, IDENTIFYING from BATCH_JOB_EXECUTION_PARAMS where JOB_EXECUTION_ID = ?]
+11:28:56.445 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.445 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.445 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT ji.JOB_INSTANCE_ID, JOB_NAME, JOB_KEY, ji.VERSION from BATCH_JOB_INSTANCE ji, BATCH_JOB_EXECUTION je where JOB_EXECUTION_ID = ? and ji.JOB_INSTANCE_ID = je.JOB_INSTANCE_ID]
+11:28:56.445 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.446 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.446 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT STEP_EXECUTION_ID, STEP_NAME, START_TIME, END_TIME, STATUS, COMMIT_COUNT, READ_COUNT, FILTER_COUNT, WRITE_COUNT, EXIT_CODE, EXIT_MESSAGE, READ_SKIP_COUNT, WRITE_SKIP_COUNT, PROCESS_SKIP_COUNT, ROLLBACK_COUNT, LAST_UPDATED, VERSION from BATCH_STEP_EXECUTION where JOB_EXECUTION_ID = ? order by STEP_EXECUTION_ID]
+11:28:56.446 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.446 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.446 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT SHORT_CONTEXT, SERIALIZED_CONTEXT FROM BATCH_JOB_EXECUTION_CONTEXT WHERE JOB_EXECUTION_ID = ?]
+11:28:56.446 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.446 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.446 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT SHORT_CONTEXT, SERIALIZED_CONTEXT FROM BATCH_STEP_EXECUTION_CONTEXT WHERE STEP_EXECUTION_ID = ?]
+11:28:56.446 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.446 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.446 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT JOB_EXECUTION_ID, START_TIME, END_TIME, STATUS, EXIT_CODE, EXIT_MESSAGE, CREATE_TIME, LAST_UPDATED, VERSION, JOB_CONFIGURATION_LOCATION from BATCH_JOB_EXECUTION where JOB_INSTANCE_ID = ? order by JOB_EXECUTION_ID desc]
+11:28:56.446 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.446 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.446 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT JOB_EXECUTION_ID, KEY_NAME, TYPE_CD, STRING_VAL, DATE_VAL, LONG_VAL, DOUBLE_VAL, IDENTIFYING from BATCH_JOB_EXECUTION_PARAMS where JOB_EXECUTION_ID = ?]
+11:28:56.446 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.446 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.446 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT ji.JOB_INSTANCE_ID, JOB_NAME, JOB_KEY, ji.VERSION from BATCH_JOB_INSTANCE ji, BATCH_JOB_EXECUTION je where JOB_EXECUTION_ID = ? and ji.JOB_INSTANCE_ID = je.JOB_INSTANCE_ID]
+11:28:56.446 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.447 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.447 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT STEP_EXECUTION_ID, STEP_NAME, START_TIME, END_TIME, STATUS, COMMIT_COUNT, READ_COUNT, FILTER_COUNT, WRITE_COUNT, EXIT_CODE, EXIT_MESSAGE, READ_SKIP_COUNT, WRITE_SKIP_COUNT, PROCESS_SKIP_COUNT, ROLLBACK_COUNT, LAST_UPDATED, VERSION from BATCH_STEP_EXECUTION where JOB_EXECUTION_ID = ? order by STEP_EXECUTION_ID]
+11:28:56.447 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.447 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.447 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT SHORT_CONTEXT, SERIALIZED_CONTEXT FROM BATCH_JOB_EXECUTION_CONTEXT WHERE JOB_EXECUTION_ID = ?]
+11:28:56.447 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.447 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.447 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT SHORT_CONTEXT, SERIALIZED_CONTEXT FROM BATCH_STEP_EXECUTION_CONTEXT WHERE STEP_EXECUTION_ID = ?]
+11:28:56.447 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.447 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.447 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT JOB_EXECUTION_ID, START_TIME, END_TIME, STATUS, EXIT_CODE, EXIT_MESSAGE, CREATE_TIME, LAST_UPDATED, VERSION, JOB_CONFIGURATION_LOCATION from BATCH_JOB_EXECUTION where JOB_INSTANCE_ID = ? order by JOB_EXECUTION_ID desc]
+11:28:56.447 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.447 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.447 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT JOB_EXECUTION_ID, KEY_NAME, TYPE_CD, STRING_VAL, DATE_VAL, LONG_VAL, DOUBLE_VAL, IDENTIFYING from BATCH_JOB_EXECUTION_PARAMS where JOB_EXECUTION_ID = ?]
+11:28:56.447 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.447 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.447 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT ji.JOB_INSTANCE_ID, JOB_NAME, JOB_KEY, ji.VERSION from BATCH_JOB_INSTANCE ji, BATCH_JOB_EXECUTION je where JOB_EXECUTION_ID = ? and ji.JOB_INSTANCE_ID = je.JOB_INSTANCE_ID]
+11:28:56.447 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.448 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.448 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT STEP_EXECUTION_ID, STEP_NAME, START_TIME, END_TIME, STATUS, COMMIT_COUNT, READ_COUNT, FILTER_COUNT, WRITE_COUNT, EXIT_CODE, EXIT_MESSAGE, READ_SKIP_COUNT, WRITE_SKIP_COUNT, PROCESS_SKIP_COUNT, ROLLBACK_COUNT, LAST_UPDATED, VERSION from BATCH_STEP_EXECUTION where JOB_EXECUTION_ID = ? order by STEP_EXECUTION_ID]
+11:28:56.448 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.448 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.448 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT SHORT_CONTEXT, SERIALIZED_CONTEXT FROM BATCH_JOB_EXECUTION_CONTEXT WHERE JOB_EXECUTION_ID = ?]
+11:28:56.448 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.448 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.448 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT SHORT_CONTEXT, SERIALIZED_CONTEXT FROM BATCH_STEP_EXECUTION_CONTEXT WHERE STEP_EXECUTION_ID = ?]
+11:28:56.448 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.448 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL query
+11:28:56.448 [main] DEBUG org.springframework.jdbc.core.JdbcTemplate - Executing prepared SQL statement [SELECT JOB_INSTANCE_ID, JOB_NAME from BATCH_JOB_INSTANCE where JOB_NAME = ? order by JOB_INSTANCE_ID desc]
+11:28:56.448 [main] DEBUG org.springframework.jdbc.datasource.DataSourceUtils - Fetching JDBC Connection from DataSource
+11:28:56.544 [main] ERROR org.springframework.batch.core.launch.support.CommandLineJobRunner - Job Terminated in error: No running execution found for job=job
+org.springframework.batch.core.launch.JobExecutionNotRunningException: No running execution found for job=job
+	at org.springframework.batch.core.launch.support.CommandLineJobRunner.start(CommandLineJobRunner.java:313)
+	at org.springframework.batch.core.launch.support.CommandLineJobRunner.main(CommandLineJobRunner.java:564)
+	at com.example.demo2.DemoStopBatchJobWithCommandLineJobLauncher.main(DemoStopBatchJobWithCommandLineJobLauncher.java:20)
+11:28:56.545 [main] DEBUG org.springframework.context.annotation.AnnotationConfigApplicationContext - Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@6fb0d3ed, started on Wed Sep 11 11:27:01 CEST 2019

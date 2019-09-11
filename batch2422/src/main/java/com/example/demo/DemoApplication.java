@@ -18,7 +18,7 @@ public class DemoApplication {
 		JobLauncher jobLauncher = context.getBean(JobLauncher.class);
 		Job job = context.getBean(Job.class);
 
-		for (int i = 0; i < 10_000; i++) {
+		for (int i = 0; i < 100_000; i++) {
 			JobParameters jobParameters = new JobParametersBuilder()
 					.addString("id", UUID.randomUUID().toString())
 					.toJobParameters();
