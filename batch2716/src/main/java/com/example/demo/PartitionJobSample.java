@@ -36,7 +36,7 @@ public class PartitionJobSample {
 		return steps.get("masterStep")
 				.partitioner(slaveStep().getName(), partitioner())
 				.step(slaveStep())
-				.gridSize(10000)
+				.gridSize(5000)
 				.taskExecutor(threadPoolTaskExecutor())
 				.allowStartIfComplete(true)
 				.build();
