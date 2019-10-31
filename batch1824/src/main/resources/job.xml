@@ -1,0 +1,67 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:batch="http://www.springframework.org/schema/batch"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd ">
+
+    <!--infrastructure beans-->
+
+    <bean id="transactionManager"
+          class="org.springframework.batch.support.transaction.ResourcelessTransactionManager"/>
+
+    <bean id="jobRepository"
+          class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+    </bean>
+
+    <bean id="jobLauncher"
+          class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+        <property name="jobRepository" ref="jobRepository"/>
+    </bean>
+
+    <!--job related beans-->
+
+    <batch:job id="helloWorldJob">
+        <batch:step id="step1">
+            <batch:tasklet>
+                <ref bean="deleteEmpTasklet"/>
+            </batch:tasklet>
+        </batch:step>
+    </batch:job>
+
+    <bean id="deleteEmpTasklet"
+          class="com.example.demo.MyTasklet"
+          lazy-init="true"
+          autowire="byName"
+          scope="step">
+        <property name="sqlsList"  >
+            <list>
+                <ref bean="deleteEmpRecs" />
+                <ref bean="deleteMgrRecs" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="deleteEmpRecs" class="java.lang.String" scope="step">
+        <constructor-arg index="0">
+            <value >
+                <![CDATA[
+                    DELETE FROM EMP_TABLE
+                    WHERE EMP_UID = '#{jobParameters[empUid]}'
+                ]]>
+            </value>
+        </constructor-arg>
+    </bean>
+
+    <bean id="deleteMgrRecs" class="java.lang.String" scope="step">
+        <constructor-arg index="0">
+            <value>
+                <![CDATA[
+                    DELETE FROM EMP_MGR_TABLE
+                    WHERE EMP_UID = '#{jobParameters[empUid]}'
+                ]]>
+            </value>
+        </constructor-arg>
+    </bean>
+
+</beans>
