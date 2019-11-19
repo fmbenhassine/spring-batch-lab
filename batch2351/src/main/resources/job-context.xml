@@ -1,0 +1,39 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:batch="http://www.springframework.org/schema/batch"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/batch https://www.springframework.org/schema/batch/spring-batch.xsd
+       http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+
+    <batch:job id="myjob">
+        <batch:step id="mystep">
+            <batch:tasklet>
+                <batch:chunk reader="itemReader" writer="itemWriter"
+                             commit-interval="2"/>
+            </batch:tasklet>
+        </batch:step>
+    </batch:job>
+
+    <bean id="itemReader"
+          class="org.springframework.batch.item.support.ListItemReader" scope="step">
+        <constructor-arg>
+            <list>
+                <value>One</value>
+                <value>Two</value>
+                <value>Three</value>
+                <value>Four</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="itemWriter"
+          class="org.springframework.batch.item.adapter.ItemWriterAdapter">
+        <property name="targetObject">
+            <util:constant static-field="java.lang.System.out"/>
+        </property>
+        <property name="targetMethod" value="println"/>
+    </bean>
+
+</beans>
