@@ -17,13 +17,10 @@
     </batch:job>
 
     <bean id="itemReader"
-          class="org.springframework.batch.item.support.ListItemReader" scope="step">
+          class="org.springframework.batch.item.support.ListItemReader" scope="step"> <!-- using scope="job" also works -->
         <constructor-arg>
             <list>
-                <value>One</value>
-                <value>Two</value>
-                <value>Three</value>
-                <value>Four</value>
+                <value>#{jobParameters['param']}</value>
             </list>
         </constructor-arg>
     </bean>
