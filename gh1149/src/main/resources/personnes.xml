@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<personnes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="personnes.xsd">
+    <personne>
+        <prenom>toto</prenom>
+        <nom>dupont</nom>
+    </personne>
+    <personne>
+        <prenom>titi</prenom>
+        <nom>durand</nom>
+    </personne>
+    <personne>
+        <prenom>tata</prenom>
+        <nom>lanvin</nom>
+    </personne>
+</personnes>
