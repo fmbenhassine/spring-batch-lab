@@ -15,14 +15,12 @@
  */
 package com.example.demo;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.sql.DataSource;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,12 +34,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterUtils;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-import org.springframework.lang.Nullable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -86,7 +82,7 @@ public class NamedParametersJdbcCursorItemReaderTest {
 			return new JdbcCursorItemReaderBuilder<Person>()
 					.name("personItemReader")
 					.dataSource(dataSource())
-					.rowMapper(rowMapper())
+					.rowMapper(new PersonRowMapper())
 					.sql(NamedParameterUtils.substituteNamedParameters(sql, new MapSqlParameterSource(namedParameters)))
 					.preparedStatementSetter(new ListPreparedStatementSetter(Arrays.asList(NamedParameterUtils.buildValueArray(sql, namedParameters))))
 					.build();
@@ -106,19 +102,6 @@ public class NamedParametersJdbcCursorItemReaderTest {
 			return new JdbcTemplate(dataSource());
 		}
 
-		@Bean
-		public RowMapper<Person> rowMapper() {
-			return new RowMapper<Person>() {
-				@Nullable
-				@Override
-				public Person mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-					Person person = new Person();
-					person.setId(resultSet.getInt(1));
-					person.setName(resultSet.getString(2));
-					return person;
-				}
-			};
-		}
 	}
 
 }

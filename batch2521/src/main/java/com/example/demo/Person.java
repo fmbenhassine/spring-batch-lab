@@ -1,6 +1,6 @@
 package com.example.demo;
 
-class Person {
+public class Person {
 
 	int id;
 	String name;
@@ -22,5 +22,13 @@ class Person {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "Person{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				'}';
 	}
 }
