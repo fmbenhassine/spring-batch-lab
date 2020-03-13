@@ -1,0 +1,46 @@
+Index: src/main/java/io/github/benas/sbi/JobConfiguration.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/io/github/benas/sbi/JobConfiguration.java	(revision 74d443e914760a64c8559bc04e45ebcf0ced511a)
++++ src/main/java/io/github/benas/sbi/JobConfiguration.java	(revision 80503a8b1dcc05f7c5241444cda7fbfad4592422)
+@@ -1,9 +1,14 @@
+ package io.github.benas.sbi;
+ 
++import org.springframework.batch.core.Job;
++import org.springframework.batch.core.Step;
++import org.springframework.batch.core.job.builder.JobBuilder;
+ import org.springframework.batch.core.launch.JobLauncher;
+ import org.springframework.batch.core.launch.support.SimpleJobLauncher;
+ import org.springframework.batch.core.repository.JobRepository;
+ import org.springframework.batch.core.repository.support.JobRepositoryFactoryBean;
++import org.springframework.batch.core.step.builder.StepBuilder;
++import org.springframework.batch.repeat.RepeatStatus;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.context.annotation.Bean;
+ import org.springframework.context.annotation.Configuration;
+@@ -41,4 +46,23 @@
+ 		return simpleJobLauncher;
+ 	}
+ 
++	@Bean
++	public Step step() throws Exception {
++		return new StepBuilder("step")
++				.repository(jobRepository())
++				.transactionManager(transactionManager)
++				.tasklet((contribution, chunkContext) -> {
++					System.out.println("hello world");
++					return RepeatStatus.FINISHED;
++				}).build();
++	}
++
++	@Bean
++	public Job job() throws Exception {
++		return new JobBuilder("job")
++				.repository(jobRepository())
++				.start(step())
++				.build();
++	}
++
+ }

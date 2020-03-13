@@ -1,0 +1,80 @@
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- pom.xml	(revision 61479339f69192f00ce97ee2ba0016ff4d5d1d58)
++++ pom.xml	(revision d4d497e4ca924653669dcab659ea13182a2c098e)
+@@ -26,6 +26,16 @@
+             <groupId>org.mariadb.jdbc</groupId>
+             <artifactId>mariadb-java-client</artifactId>
+         </dependency>
++        <dependency>
++            <groupId>org.springframework.batch</groupId>
++            <artifactId>spring-batch-test</artifactId>
++            <scope>test</scope>
++        </dependency>
++        <dependency>
++            <groupId>junit</groupId>
++            <artifactId>junit</artifactId>
++            <scope>test</scope>
++        </dependency>
+     </dependencies>
+ 
+     <build>
+Index: src/test/java/io/github/benas/sbi/JobTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/test/java/io/github/benas/sbi/JobTest.java	(revision d4d497e4ca924653669dcab659ea13182a2c098e)
++++ src/test/java/io/github/benas/sbi/JobTest.java	(revision d4d497e4ca924653669dcab659ea13182a2c098e)
+@@ -0,0 +1,48 @@
++package io.github.benas.sbi;
++
++import org.junit.Assert;
++import org.junit.Test;
++import org.junit.runner.RunWith;
++import org.springframework.batch.core.ExitStatus;
++import org.springframework.batch.core.JobExecution;
++import org.springframework.batch.core.JobParameters;
++import org.springframework.batch.core.JobParametersBuilder;
++import org.springframework.batch.test.JobLauncherTestUtils;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.context.annotation.Bean;
++import org.springframework.context.annotation.Configuration;
++import org.springframework.test.context.ContextConfiguration;
++import org.springframework.test.context.junit4.SpringRunner;
++
++@RunWith(SpringRunner.class)
++@ContextConfiguration(classes = {JobConfiguration.class, JobTest.TestConfiguration.class})
++public class JobTest {
++
++	@Autowired
++	private JobLauncherTestUtils jobLauncherTestUtils;
++
++	@Test
++	public void testJob() throws Exception {
++		// given
++		JobParameters uniqueJobParameters = jobLauncherTestUtils.getUniqueJobParameters();
++		JobParameters jobParameters = new JobParametersBuilder(uniqueJobParameters)
++				.addString("name", "foo")
++				.toJobParameters();
++
++		// when
++		JobExecution jobExecution = jobLauncherTestUtils.launchJob(jobParameters);
++
++		// then
++		Assert.assertEquals(ExitStatus.COMPLETED, jobExecution.getExitStatus());
++	}
++
++	@Configuration
++	public static class TestConfiguration {
++
++		@Bean
++		public JobLauncherTestUtils jobLauncherTestUtils() {
++			return new JobLauncherTestUtils();
++		}
++
++	}
++}

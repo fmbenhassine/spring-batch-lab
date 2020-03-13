@@ -1,0 +1,86 @@
+Index: src/main/java/io/github/benas/sbi/JobConfiguration.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/io/github/benas/sbi/JobConfiguration.java	(revision 327193d63cbd290134cc02e27b2f0a2fa779adf9)
++++ src/main/java/io/github/benas/sbi/JobConfiguration.java	(revision 0f72cb3699413d990b91e163566380a39f81afb4)
+@@ -2,55 +2,33 @@
+ 
+ import org.springframework.batch.core.Job;
+ import org.springframework.batch.core.Step;
+-import org.springframework.batch.core.job.builder.JobBuilder;
+-import org.springframework.batch.core.launch.JobLauncher;
+-import org.springframework.batch.core.launch.support.SimpleJobLauncher;
+-import org.springframework.batch.core.repository.JobRepository;
+-import org.springframework.batch.core.repository.support.JobRepositoryFactoryBean;
+-import org.springframework.batch.core.step.builder.StepBuilder;
++import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
++import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
++import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+ import org.springframework.batch.repeat.RepeatStatus;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.context.annotation.Bean;
+ import org.springframework.context.annotation.Configuration;
+ import org.springframework.context.annotation.Import;
+-import org.springframework.transaction.PlatformTransactionManager;
+-
+-import javax.sql.DataSource;
+ 
+ @Configuration
+ @Import(DataSourceConfiguration.class)
++@EnableBatchProcessing
+ public class JobConfiguration {
+ 
+-	private DataSource dataSource;
++	private JobBuilderFactory jobBuilderFactory;
+ 
+-	private PlatformTransactionManager transactionManager;
++	private StepBuilderFactory stepBuilderFactory;
+ 
+ 	@Autowired
+-	public JobConfiguration(DataSource dataSource, PlatformTransactionManager transactionManager) {
+-		this.dataSource = dataSource;
+-		this.transactionManager = transactionManager;
+-	}
+-
+-	@Bean
+-	public JobRepository jobRepository() throws Exception {
+-		JobRepositoryFactoryBean jobRepositoryFactoryBean = new JobRepositoryFactoryBean();
+-		jobRepositoryFactoryBean.setDataSource(dataSource);
+-		jobRepositoryFactoryBean.setTransactionManager(transactionManager);
+-		return jobRepositoryFactoryBean.getObject();
++	public JobConfiguration(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory) {
++		this.jobBuilderFactory = jobBuilderFactory;
++		this.stepBuilderFactory = stepBuilderFactory;
+ 	}
+ 
+ 	@Bean
+-	public JobLauncher jobLauncher() throws Exception {
+-		SimpleJobLauncher simpleJobLauncher = new SimpleJobLauncher();
+-		simpleJobLauncher.setJobRepository(jobRepository());
+-		return simpleJobLauncher;
+-	}
+-
+-	@Bean
+-	public Step step() throws Exception {
+-		return new StepBuilder("step")
+-				.repository(jobRepository())
+-				.transactionManager(transactionManager)
++	public Step step() {
++		return stepBuilderFactory.get("step")
+ 				.tasklet((contribution, chunkContext) -> {
+ 					System.out.println("hello world");
+ 					return RepeatStatus.FINISHED;
+@@ -58,9 +36,8 @@
+ 	}
+ 
+ 	@Bean
+-	public Job job() throws Exception {
+-		return new JobBuilder("job")
+-				.repository(jobRepository())
++	public Job job() {
++		return jobBuilderFactory.get("job")
+ 				.start(step())
+ 				.build();
+ 	}

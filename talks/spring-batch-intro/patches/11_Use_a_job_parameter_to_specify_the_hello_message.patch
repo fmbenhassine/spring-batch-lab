@@ -1,0 +1,58 @@
+Index: run.sh
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- run.sh	(revision 0f72cb3699413d990b91e163566380a39f81afb4)
++++ run.sh	(revision 61479339f69192f00ce97ee2ba0016ff4d5d1d58)
+@@ -3,4 +3,5 @@
+ java -cp target/spring-batch-intro-1.0-SNAPSHOT.jar \
+   org.springframework.batch.core.launch.support.CommandLineJobRunner \
+   io.github.benas.sbi.JobConfiguration \
+-  job
++  job \
++  $*
+Index: src/main/java/io/github/benas/sbi/JobConfiguration.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/io/github/benas/sbi/JobConfiguration.java	(revision 0f72cb3699413d990b91e163566380a39f81afb4)
++++ src/main/java/io/github/benas/sbi/JobConfiguration.java	(revision 61479339f69192f00ce97ee2ba0016ff4d5d1d58)
+@@ -5,8 +5,11 @@
+ import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
+ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
+ import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
++import org.springframework.batch.core.configuration.annotation.StepScope;
++import org.springframework.batch.core.step.tasklet.Tasklet;
+ import org.springframework.batch.repeat.RepeatStatus;
+ import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.beans.factory.annotation.Value;
+ import org.springframework.context.annotation.Bean;
+ import org.springframework.context.annotation.Configuration;
+ import org.springframework.context.annotation.Import;
+@@ -26,13 +29,20 @@
+ 		this.stepBuilderFactory = stepBuilderFactory;
+ 	}
+ 
++	@Bean
++	@StepScope
++	public Tasklet tasklet(@Value("#{jobParameters['name']}") String name) {
++		return (contribution, chunkContext) -> {
++			System.out.println("hello " + name);
++			return RepeatStatus.FINISHED;
++		};
++	}
++
+ 	@Bean
+ 	public Step step() {
+ 		return stepBuilderFactory.get("step")
+-				.tasklet((contribution, chunkContext) -> {
+-					System.out.println("hello world");
+-					return RepeatStatus.FINISHED;
+-				}).build();
++				.tasklet(tasklet(null))
++				.build();
+ 	}
+ 
+ 	@Bean

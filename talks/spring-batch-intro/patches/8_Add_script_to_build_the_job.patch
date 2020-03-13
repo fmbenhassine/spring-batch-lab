@@ -1,0 +1,11 @@
+Index: build.sh
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- build.sh	(revision ce465c3e24d59507f451b832f6ae5feeafdbcc1d)
++++ build.sh	(revision ce465c3e24d59507f451b832f6ae5feeafdbcc1d)
+@@ -0,0 +1,3 @@
++#!/usr/bin/env bash
++
++mvn clean package

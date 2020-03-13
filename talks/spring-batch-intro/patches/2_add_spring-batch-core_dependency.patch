@@ -1,0 +1,21 @@
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- pom.xml	(revision 932be317def06897815e872f294a37903708dff7)
++++ pom.xml	(revision 33633400bf481452e70ca541ff3299d274ccac0b)
+@@ -13,6 +13,13 @@
+         <java.version>1.8</java.version>
+     </properties>
+ 
++    <dependencies>
++        <dependency>
++            <groupId>org.springframework.batch</groupId>
++            <artifactId>spring-batch-core</artifactId>
++        </dependency>
++    </dependencies>
++
+     <build>
+         <plugins>
+             <plugin>

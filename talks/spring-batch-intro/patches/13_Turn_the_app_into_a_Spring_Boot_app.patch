@@ -1,0 +1,196 @@
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- pom.xml	(revision d4d497e4ca924653669dcab659ea13182a2c098e)
++++ pom.xml	(revision 37396190fedc2ec95ab8888e0f3e84f9adef3d63)
+@@ -8,6 +8,13 @@
+     <artifactId>spring-batch-intro</artifactId>
+     <version>1.0-SNAPSHOT</version>
+ 
++    <parent>
++        <groupId>org.springframework.boot</groupId>
++        <artifactId>spring-boot-starter-parent</artifactId>
++        <version>2.0.1.RELEASE</version>
++        <relativePath/>
++    </parent>
++
+     <properties>
+         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+         <java.version>1.8</java.version>
+@@ -15,8 +22,8 @@
+ 
+     <dependencies>
+         <dependency>
+-            <groupId>org.springframework.batch</groupId>
+-            <artifactId>spring-batch-core</artifactId>
++            <groupId>org.springframework.boot</groupId>
++            <artifactId>spring-boot-starter-batch</artifactId>
+         </dependency>
+         <dependency>
+             <groupId>org.springframework</groupId>
+@@ -41,38 +48,10 @@
+     <build>
+         <plugins>
+             <plugin>
+-                <groupId>org.apache.maven.plugins</groupId>
+-                <artifactId>maven-compiler-plugin</artifactId>
+-                <configuration>
+-                    <source>${java.version}</source>
+-                    <target>${java.version}</target>
+-                </configuration>
+-            </plugin>
+-            <plugin>
+-                <groupId>org.apache.maven.plugins</groupId>
+-                <artifactId>maven-shade-plugin</artifactId>
+-                <executions>
+-                    <execution>
+-                        <phase>package</phase>
+-                        <goals>
+-                            <goal>shade</goal>
+-                        </goals>
+-                    </execution>
+-                </executions>
++                <groupId>org.springframework.boot</groupId>
++                <artifactId>spring-boot-maven-plugin</artifactId>
+             </plugin>
+         </plugins>
+     </build>
+ 
+-    <dependencyManagement>
+-        <dependencies>
+-            <dependency>
+-                <groupId>org.springframework.boot</groupId>
+-                <artifactId>spring-boot-dependencies</artifactId>
+-                <version>2.0.1.RELEASE</version>
+-                <type>pom</type>
+-                <scope>import</scope>
+-            </dependency>
+-        </dependencies>
+-    </dependencyManagement>
+-
+ </project>
+Index: run.sh
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- run.sh	(revision d4d497e4ca924653669dcab659ea13182a2c098e)
++++ run.sh	(revision 37396190fedc2ec95ab8888e0f3e84f9adef3d63)
+@@ -1,7 +1,3 @@
+ #!/usr/bin/env bash
+ 
+-java -cp target/spring-batch-intro-1.0-SNAPSHOT.jar \
+-  org.springframework.batch.core.launch.support.CommandLineJobRunner \
+-  io.github.benas.sbi.JobConfiguration \
+-  job \
+-  $*
++java -jar target/spring-batch-intro-1.0-SNAPSHOT.jar $*
+Index: src/main/java/io/github/benas/sbi/DataSourceConfiguration.java
+===================================================================
+--- src/main/java/io/github/benas/sbi/DataSourceConfiguration.java	(revision d4d497e4ca924653669dcab659ea13182a2c098e)
++++ src/main/java/io/github/benas/sbi/DataSourceConfiguration.java	(revision d4d497e4ca924653669dcab659ea13182a2c098e)
+@@ -1,41 +0,0 @@
+-package io.github.benas.sbi;
+-
+-import org.mariadb.jdbc.MariaDbDataSource;
+-import org.springframework.beans.factory.annotation.Value;
+-import org.springframework.context.annotation.Bean;
+-import org.springframework.context.annotation.Configuration;
+-import org.springframework.context.annotation.PropertySource;
+-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+-import org.springframework.transaction.PlatformTransactionManager;
+-
+-import javax.sql.DataSource;
+-import java.sql.SQLException;
+-
+-@Configuration
+-@PropertySource("classpath:application.properties")
+-public class DataSourceConfiguration {
+-
+-	@Value("${spring.datasource.url}")
+-	private String url;
+-
+-	@Value("${spring.datasource.username}")
+-	private String username;
+-
+-	@Value("${spring.datasource.password}")
+-	private String password;
+-
+-	@Bean
+-	public DataSource dataSource() throws SQLException {
+-		MariaDbDataSource datasource = new MariaDbDataSource();
+-		datasource.setUrl(url);
+-		datasource.setUser(username);
+-		datasource.setPassword(password);
+-		return datasource;
+-	}
+-
+-	@Bean
+-	public PlatformTransactionManager transactionManager() throws SQLException {
+-		return new DataSourceTransactionManager(dataSource());
+-	}
+-
+-}
+Index: src/main/java/io/github/benas/sbi/JobApplication.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/io/github/benas/sbi/JobApplication.java	(revision d4d497e4ca924653669dcab659ea13182a2c098e)
++++ src/main/java/io/github/benas/sbi/JobApplication.java	(revision 37396190fedc2ec95ab8888e0f3e84f9adef3d63)
+@@ -1,18 +1,13 @@
+ package io.github.benas.sbi;
+ 
+-import org.springframework.batch.core.Job;
+-import org.springframework.batch.core.JobParameters;
+-import org.springframework.batch.core.launch.JobLauncher;
+-import org.springframework.context.ApplicationContext;
+-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
++import org.springframework.boot.SpringApplication;
++import org.springframework.boot.autoconfigure.SpringBootApplication;
+ 
++@SpringBootApplication
+ public class JobApplication {
+ 
+-	public static void main(String[] args) throws Exception {
+-		ApplicationContext context = new AnnotationConfigApplicationContext(JobConfiguration.class);
+-		JobLauncher jobLauncher = context.getBean(JobLauncher.class);
+-		Job job = context.getBean(Job.class);
+-		jobLauncher.run(job, new JobParameters());
++	public static void main(String[] args) {
++		SpringApplication.run(JobApplication.class, args);
+ 	}
+ 
+ }
+Index: src/main/java/io/github/benas/sbi/JobConfiguration.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/io/github/benas/sbi/JobConfiguration.java	(revision d4d497e4ca924653669dcab659ea13182a2c098e)
++++ src/main/java/io/github/benas/sbi/JobConfiguration.java	(revision 37396190fedc2ec95ab8888e0f3e84f9adef3d63)
+@@ -12,10 +12,8 @@
+ import org.springframework.beans.factory.annotation.Value;
+ import org.springframework.context.annotation.Bean;
+ import org.springframework.context.annotation.Configuration;
+-import org.springframework.context.annotation.Import;
+ 
+ @Configuration
+-@Import(DataSourceConfiguration.class)
+ @EnableBatchProcessing
+ public class JobConfiguration {
+ 
+Index: src/main/resources/application.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/application.properties	(revision d4d497e4ca924653669dcab659ea13182a2c098e)
++++ src/main/resources/application.properties	(revision 37396190fedc2ec95ab8888e0f3e84f9adef3d63)
+@@ -1,3 +1,4 @@
++spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+ spring.datasource.url=jdbc:mysql://localhost:3306/sbi
+ spring.datasource.username=root
+ spring.datasource.password=root

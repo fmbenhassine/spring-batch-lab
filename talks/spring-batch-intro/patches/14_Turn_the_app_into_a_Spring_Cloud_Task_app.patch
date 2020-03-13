@@ -1,0 +1,57 @@
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- pom.xml	(revision 37396190fedc2ec95ab8888e0f3e84f9adef3d63)
++++ pom.xml	(revision 3d0d4cad68bd6656860d048eb16a35c5a74b4fe9)
+@@ -26,6 +26,11 @@
+             <artifactId>spring-boot-starter-batch</artifactId>
+         </dependency>
+         <dependency>
++            <groupId>org.springframework.cloud</groupId>
++            <artifactId>spring-cloud-starter-task</artifactId>
++            <version>2.0.0.RELEASE</version>
++        </dependency>
++        <dependency>
+             <groupId>org.springframework</groupId>
+             <artifactId>spring-jdbc</artifactId>
+         </dependency>
+Index: src/main/java/io/github/benas/sbi/JobApplication.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/io/github/benas/sbi/JobApplication.java	(revision 37396190fedc2ec95ab8888e0f3e84f9adef3d63)
++++ src/main/java/io/github/benas/sbi/JobApplication.java	(revision 3d0d4cad68bd6656860d048eb16a35c5a74b4fe9)
+@@ -2,7 +2,9 @@
+ 
+ import org.springframework.boot.SpringApplication;
+ import org.springframework.boot.autoconfigure.SpringBootApplication;
++import org.springframework.cloud.task.configuration.EnableTask;
+ 
++@EnableTask
+ @SpringBootApplication
+ public class JobApplication {
+ 
+Index: src/main/resources/META-INF/spring-configuration-metadata-whitelist.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/META-INF/spring-configuration-metadata-whitelist.properties	(revision 3d0d4cad68bd6656860d048eb16a35c5a74b4fe9)
++++ src/main/resources/META-INF/spring-configuration-metadata-whitelist.properties	(revision 3d0d4cad68bd6656860d048eb16a35c5a74b4fe9)
+@@ -0,0 +1,1 @@
++configuration-properties.names=spring.application.name
+Index: src/main/resources/application.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/application.properties	(revision 37396190fedc2ec95ab8888e0f3e84f9adef3d63)
++++ src/main/resources/application.properties	(revision 3d0d4cad68bd6656860d048eb16a35c5a74b4fe9)
+@@ -1,3 +1,4 @@
++spring.application.name=myjob
+ spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+ spring.datasource.url=jdbc:mysql://localhost:3306/sbi
+ spring.datasource.username=root

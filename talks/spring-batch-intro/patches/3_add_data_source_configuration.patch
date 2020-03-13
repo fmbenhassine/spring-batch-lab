@@ -1,0 +1,79 @@
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- pom.xml	(revision 33633400bf481452e70ca541ff3299d274ccac0b)
++++ pom.xml	(revision bc8cff2b8b911aaaf4e930d1657cde2b555e8466)
+@@ -18,6 +18,14 @@
+             <groupId>org.springframework.batch</groupId>
+             <artifactId>spring-batch-core</artifactId>
+         </dependency>
++        <dependency>
++            <groupId>org.springframework</groupId>
++            <artifactId>spring-jdbc</artifactId>
++        </dependency>
++        <dependency>
++            <groupId>org.mariadb.jdbc</groupId>
++            <artifactId>mariadb-java-client</artifactId>
++        </dependency>
+     </dependencies>
+ 
+     <build>
+Index: src/main/java/io/github/benas/sbi/DataSourceConfiguration.java
+===================================================================
+--- src/main/java/io/github/benas/sbi/DataSourceConfiguration.java	(revision bc8cff2b8b911aaaf4e930d1657cde2b555e8466)
++++ src/main/java/io/github/benas/sbi/DataSourceConfiguration.java	(revision bc8cff2b8b911aaaf4e930d1657cde2b555e8466)
+@@ -0,0 +1,41 @@
++package io.github.benas.sbi;
++
++import org.mariadb.jdbc.MariaDbDataSource;
++import org.springframework.beans.factory.annotation.Value;
++import org.springframework.context.annotation.Bean;
++import org.springframework.context.annotation.Configuration;
++import org.springframework.context.annotation.PropertySource;
++import org.springframework.jdbc.datasource.DataSourceTransactionManager;
++import org.springframework.transaction.PlatformTransactionManager;
++
++import javax.sql.DataSource;
++import java.sql.SQLException;
++
++@Configuration
++@PropertySource("classpath:application.properties")
++public class DataSourceConfiguration {
++
++	@Value("${spring.datasource.url}")
++	private String url;
++
++	@Value("${spring.datasource.username}")
++	private String username;
++
++	@Value("${spring.datasource.password}")
++	private String password;
++
++	@Bean
++	public DataSource dataSource() throws SQLException {
++		MariaDbDataSource datasource = new MariaDbDataSource();
++		datasource.setUrl(url);
++		datasource.setUser(username);
++		datasource.setPassword(password);
++		return datasource;
++	}
++
++	@Bean
++	public PlatformTransactionManager transactionManager() throws SQLException {
++		return new DataSourceTransactionManager(dataSource());
++	}
++
++}
+Index: src/main/resources/application.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/application.properties	(revision bc8cff2b8b911aaaf4e930d1657cde2b555e8466)
++++ src/main/resources/application.properties	(revision bc8cff2b8b911aaaf4e930d1657cde2b555e8466)
+@@ -0,0 +1,3 @@
++spring.datasource.url=jdbc:mysql://localhost:3306/sbi
++spring.datasource.username=root
++spring.datasource.password=root

@@ -1,0 +1,14 @@
+Index: run.sh
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- run.sh	(revision 327193d63cbd290134cc02e27b2f0a2fa779adf9)
++++ run.sh	(revision 327193d63cbd290134cc02e27b2f0a2fa779adf9)
+@@ -0,0 +1,6 @@
++#!/usr/bin/env bash
++
++java -cp target/spring-batch-intro-1.0-SNAPSHOT.jar \
++  org.springframework.batch.core.launch.support.CommandLineJobRunner \
++  io.github.benas.sbi.JobConfiguration \
++  job

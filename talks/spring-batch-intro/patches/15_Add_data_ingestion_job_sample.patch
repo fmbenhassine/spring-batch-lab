@@ -1,0 +1,222 @@
+Index: src/main/java/io/github/benas/sbi/JobConfiguration.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/io/github/benas/sbi/JobConfiguration.java	(revision 3d0d4cad68bd6656860d048eb16a35c5a74b4fe9)
++++ src/main/java/io/github/benas/sbi/JobConfiguration.java	(revision 32b0faa418088b649474aaf4f27b633b248193b0)
+@@ -1,5 +1,10 @@
+ package io.github.benas.sbi;
+ 
++import java.nio.file.Files;
++import java.nio.file.Paths;
++import java.nio.file.StandardCopyOption;
++import javax.sql.DataSource;
++
+ import org.springframework.batch.core.Job;
+ import org.springframework.batch.core.Step;
+ import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
+@@ -7,16 +12,29 @@
+ import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+ import org.springframework.batch.core.configuration.annotation.StepScope;
+ import org.springframework.batch.core.step.tasklet.Tasklet;
+-import org.springframework.batch.repeat.RepeatStatus;
++import org.springframework.batch.item.ItemProcessor;
++import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
++import org.springframework.batch.item.database.JdbcBatchItemWriter;
++import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
++import org.springframework.batch.item.file.FlatFileItemReader;
++import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
++import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.beans.factory.annotation.Value;
+ import org.springframework.context.annotation.Bean;
+ import org.springframework.context.annotation.Configuration;
++import org.springframework.core.io.FileSystemResource;
++
++import static org.springframework.batch.repeat.RepeatStatus.FINISHED;
+ 
+ @Configuration
+ @EnableBatchProcessing
+ public class JobConfiguration {
+ 
++	private static final String FTP_DIR = "/tmp/ftp/";
++	private static final String INPUT_DIR = "/tmp/in/";
++	private static final String ARCHIVE_DIR = "/tmp/arc/";
++
+ 	private JobBuilderFactory jobBuilderFactory;
+ 
+ 	private StepBuilderFactory stepBuilderFactory;
+@@ -27,26 +45,88 @@
+ 		this.stepBuilderFactory = stepBuilderFactory;
+ 	}
+ 
++	@Bean
++	public Step copyFileStep() {
++		return stepBuilderFactory.get("copyFileStep")
++				.tasklet(copyFileTasklet(null))
++				.build();
++	}
++
+ 	@Bean
+ 	@StepScope
+-	public Tasklet tasklet(@Value("#{jobParameters['name']}") String name) {
++	public Tasklet copyFileTasklet(@Value("#{jobParameters['inputFile']}") String file) {
+ 		return (contribution, chunkContext) -> {
+-			System.out.println("hello " + name);
+-			return RepeatStatus.FINISHED;
++			Files.copy(
++					Paths.get(FTP_DIR + file),
++					Paths.get(INPUT_DIR + file),
++					StandardCopyOption.REPLACE_EXISTING);
++			return FINISHED;
+ 		};
+ 	}
+ 
+ 	@Bean
+-	public Step step() {
+-		return stepBuilderFactory.get("step")
+-				.tasklet(tasklet(null))
++	public Step dataIngestionStep() {
++		return stepBuilderFactory.get("dataIngestionStep")
++				.<Person, Person>chunk(3)
++				.reader(reader(null))
++				.processor(processor())
++				.writer(writer(null))
+ 				.build();
+ 	}
+ 
+ 	@Bean
+-	public Job job() {
+-		return jobBuilderFactory.get("job")
+-				.start(step())
++	@StepScope
++	public FlatFileItemReader<Person> reader(@Value("#{jobParameters['inputFile']}") String resource) {
++		return new FlatFileItemReaderBuilder<Person>()
++				.name("personItemReader")
++				.resource(new FileSystemResource(INPUT_DIR + resource))
++				.delimited()
++				.names(new String[]{"name"})
++				.fieldSetMapper(new BeanWrapperFieldSetMapper<Person>() {{
++					setTargetType(Person.class);
++				}})
++				.build();
++	}
++
++	@Bean
++	public ItemProcessor<Person, Person> processor() {
++		return person -> new Person(person.getId(), person.getName().toUpperCase());
++	}
++
++	@Bean
++	public JdbcBatchItemWriter<Person> writer(DataSource dataSource) {
++		return new JdbcBatchItemWriterBuilder<Person>()
++				.itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
++				.sql("INSERT INTO PERSON (name) VALUES (:name)")
++				.dataSource(dataSource)
++				.build();
++	}
++
++	@Bean
++	public Step moveFileStep() {
++		return stepBuilderFactory.get("moveFileStep")
++				.tasklet(moveFileTasklet(null))
++				.build();
++	}
++
++	@Bean
++	@StepScope
++	public Tasklet moveFileTasklet(@Value("#{jobParameters['inputFile']}") String file) {
++		return (contribution, chunkContext) -> {
++			Files.move(
++					Paths.get(INPUT_DIR + file),
++					Paths.get(ARCHIVE_DIR + file),
++					StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
++			return FINISHED;
++		};
++	}
++
++	@Bean
++	public Job dataIngestionJob() {
++		return jobBuilderFactory.get("dataIngestionJob")
++				.start(copyFileStep())
++				.next(dataIngestionStep())
++				.next(moveFileStep())
+ 				.build();
+ 	}
+ 
+Index: src/main/java/io/github/benas/sbi/Person.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/io/github/benas/sbi/Person.java	(revision 32b0faa418088b649474aaf4f27b633b248193b0)
++++ src/main/java/io/github/benas/sbi/Person.java	(revision 32b0faa418088b649474aaf4f27b633b248193b0)
+@@ -0,0 +1,32 @@
++package io.github.benas.sbi;
++
++public class Person {
++
++	private int id;
++
++	private String name;
++
++	public Person() {
++	}
++
++	public Person(int id, String name) {
++		this.id = id;
++		this.name = name;
++	}
++
++	public int getId() {
++		return id;
++	}
++
++	public void setId(int id) {
++		this.id = id;
++	}
++
++	public String getName() {
++		return name;
++	}
++
++	public void setName(String name) {
++		this.name = name;
++	}
++}
+Index: src/main/resources/person.sql
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/person.sql	(revision 32b0faa418088b649474aaf4f27b633b248193b0)
++++ src/main/resources/person.sql	(revision 32b0faa418088b649474aaf4f27b633b248193b0)
+@@ -0,0 +1,4 @@
++CREATE TABLE PERSON  (
++  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
++  name VARCHAR(20)
++);
+Index: src/test/java/io/github/benas/sbi/JobTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/test/java/io/github/benas/sbi/JobTest.java	(revision 3d0d4cad68bd6656860d048eb16a35c5a74b4fe9)
++++ src/test/java/io/github/benas/sbi/JobTest.java	(revision 32b0faa418088b649474aaf4f27b633b248193b0)
+@@ -1,6 +1,7 @@
+ package io.github.benas.sbi;
+ 
+ import org.junit.Assert;
++import org.junit.Ignore;
+ import org.junit.Test;
+ import org.junit.runner.RunWith;
+ import org.springframework.batch.core.ExitStatus;
+@@ -21,6 +22,7 @@
+ 	@Autowired
+ 	private JobLauncherTestUtils jobLauncherTestUtils;
+ 
++	@Ignore
+ 	@Test
+ 	public void testJob() throws Exception {
+ 		// given

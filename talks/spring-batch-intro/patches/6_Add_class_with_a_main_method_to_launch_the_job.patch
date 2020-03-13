@@ -1,0 +1,26 @@
+Index: src/main/java/io/github/benas/sbi/JobApplication.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/io/github/benas/sbi/JobApplication.java	(revision 19987f7acc2432c7c27da7337cee949171a6f5c7)
++++ src/main/java/io/github/benas/sbi/JobApplication.java	(revision 19987f7acc2432c7c27da7337cee949171a6f5c7)
+@@ -0,0 +1,18 @@
++package io.github.benas.sbi;
++
++import org.springframework.batch.core.Job;
++import org.springframework.batch.core.JobParameters;
++import org.springframework.batch.core.launch.JobLauncher;
++import org.springframework.context.ApplicationContext;
++import org.springframework.context.annotation.AnnotationConfigApplicationContext;
++
++public class JobApplication {
++
++	public static void main(String[] args) throws Exception {
++		ApplicationContext context = new AnnotationConfigApplicationContext(JobConfiguration.class);
++		JobLauncher jobLauncher = context.getBean(JobLauncher.class);
++		Job job = context.getBean(Job.class);
++		jobLauncher.run(job, new JobParameters());
++	}
++
++}
