@@ -1,0 +1,5 @@
+* keep only two module: infrastructure + core
+* remove third party readers (mongo, gemfire, etc), keep only file + db
+* rename SimpleJobLauncher -> TaskExecutorJobLauncher
+* remove incrementer &co
+* add local chunking

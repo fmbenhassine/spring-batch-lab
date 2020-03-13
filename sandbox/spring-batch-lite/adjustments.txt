@@ -1,0 +1,6 @@
+* copy ExecutionContext from infrastructure `item` package to `core`
+* replace RepeatException with Exception in AbstractJob
+* create new package org.springframework.batch.core.support
+* copy PropertiesConverter to core.support used in SimpleJobOperator.getParameters
+* copy MethodInvoker to core.support used in AbstractListenerFactoryBean
+* copy MethodInvokerUtils to core.support used in AbstractListenerFactoryBean
