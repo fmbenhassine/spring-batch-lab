@@ -4,9 +4,10 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
+import org.springframework.batch.item.file.builder.FlatFileItemWriterBuilder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -16,27 +17,25 @@ import org.springframework.core.io.FileSystemResource;
 @SpringBootApplication
 public class DemoApplication {
 
-	public record Person (int id, String name) {
-	}
-
 	@Bean
 	public FlatFileItemReader<Person> itemReader() {
 		return new FlatFileItemReaderBuilder<Person>()
 				.name("personReader")
 				.resource(new FileSystemResource("persons.csv"))
-				.targetType(Person.class)
 				.delimited()
 				.names("id", "name")
+				.fieldSetMapper(new RecordFieldSetMapper<>(Person.class))
 				.build();
 	}
 
 	@Bean
-	public ItemWriter<Person> itemWriter() {
-		return items -> {
-			for (Person person : items) {
-				System.out.println(person);
-			}
-		};
+	public FlatFileItemWriter<Person> itemWriter() {
+		return new FlatFileItemWriterBuilder<Person>()
+				.name("personWriter")
+				.resource(new FileSystemResource("persons-out.csv"))
+				.delimited()
+				.fieldExtractor(new RecordFieldExtractor<>(Person.class) {{ setNames("name", "id");}})
+				.build();
 	}
 
 	@Bean
