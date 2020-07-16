@@ -14,8 +14,8 @@
         <project.reporting.outputEncoding>UTF-8
         </project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <spring.version>5.2.2.RELEASE</spring.version>
-        <spring.batch.version>4.2.1.RELEASE</spring.batch.version>
+        <spring.version>5.3.0-M1</spring.version>
+        <spring.batch.version>4.3.0-M1</spring.batch.version>
     </properties>
     <dependencies>
         <dependency>
