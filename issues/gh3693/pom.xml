@@ -22,17 +22,17 @@
 		<dependency>
 			<groupId>org.springframework.batch</groupId>
 			<artifactId>spring-batch-core</artifactId>
-			<version>4.3.0-SNAPSHOT</version>
+			<version>4.3.0-RC1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.batch</groupId>
 			<artifactId>spring-batch-infrastructure</artifactId>
-			<version>4.3.0-SNAPSHOT</version>
+			<version>4.3.0-RC1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			<version>5.3.0-SNAPSHOT</version>
+			<version>5.3.0-RC1</version>
 		</dependency>
 
 		<dependency>
