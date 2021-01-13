@@ -1,0 +1,30 @@
+## Scenario 1 from https://cloud.google.com/blog/products/gcp/kubernetes-best-practices-mapping-external-services
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysql
+spec:
+    type: ClusterIP
+    ports:
+      - port: 3306
+        targetPort: 3306
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: mysql
+subsets:
+  - addresses:
+      - ip: 192.168.1.53
+    ports:
+      - port: 3306
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-secret
+type: Opaque
+data:
+  # base64 of "root" ($>echo -n "root" | base64)
+  db.username: cm9vdA==
+  db.password: cm9vdA==
