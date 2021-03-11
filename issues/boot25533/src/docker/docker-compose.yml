@@ -1,0 +1,14 @@
+version: "3"
+services:
+  database:
+    image: mysql
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=test
+    volumes:
+      - ../sql:/docker-entrypoint-initdb.d/:ro
+    cap_add: # this prevents "mbind: Operation not permitted" when creating the schema
+      - SYS_NICE
