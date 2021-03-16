@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persons>
+    <person>
+        <personId>1</personId>
+        <firstName>PETER</firstName>
+        <lastName>SCHMIDT</lastName>
+        <email>pschmidt0@aboutads.info</email>
+        <contactDetails>
+            <string>contact1</string>
+            <string>contact2</string>
+        </contactDetails>
+        <age>28</age>
+        <works>
+            <Work>
+                <workCompany>ESI</workCompany>
+                <workMission>Java Developper</workMission>
+            </Work>
+            <Work>
+                <workCompany>ESI</workCompany>
+                <workMission>JS Developper</workMission>
+            </Work>
+        </works>
+    </person>
+</persons>
