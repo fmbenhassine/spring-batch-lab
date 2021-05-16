@@ -7,7 +7,6 @@ This reposiotry contains all my work related to Spring Batch:
 * `diagrams`: UML diagrams generated from Spring Batch's code to help understanding class hierarchies
 * `samples`: Additional samples to complement the [official ones](https://github.com/spring-projects/spring-batch/tree/master/spring-batch-samples)
 * `talks`: Source code of my talks on Spring Batch
-* `templates`: Template projects I use to quickly create and prototype new projects
 * `sandbox`: Draft ideas related to Spring Batch that will probably be never finished or implemented
 
 # How to checkout a single project folder?
