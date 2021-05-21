@@ -1,0 +1,4 @@
+header
+Student{id=1, name='a', groupId=1}
+Student{id=3, name='c', groupId=1}
+footer
