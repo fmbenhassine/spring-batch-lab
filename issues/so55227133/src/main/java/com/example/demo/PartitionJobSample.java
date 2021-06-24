@@ -62,6 +62,7 @@ public class PartitionJobSample {
 				.build();
 	}
 
+	// even with a SynchronizedItemStreamReader wrapper the maxItemCount is not honored
 	@Bean
 	@StepScope
 	public FlatFileItemReader<String> itemReader(@Value("#{stepExecutionContext['fromId']}") Integer fromId, @Value("#{stepExecutionContext['toId']}") Integer toId) {
