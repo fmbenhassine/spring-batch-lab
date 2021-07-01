@@ -1,0 +1,16 @@
+2021-07-01 11:38:19,171 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-07-01 11:38:19,523 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2021-07-01 11:38:19,573 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2021-07-01 11:38:19,616 INFO org.springframework.batch.core.repository.support.JobRepositoryFactoryBean [main] No database type set, using meta data indicating: H2
+2021-07-01 11:38:19,659 INFO org.springframework.batch.core.launch.support.SimpleJobLauncher [main] No TaskExecutor has been set, defaulting to synchronous executor.
+2021-07-01 11:38:19,713 INFO org.springframework.boot.StartupInfoLogger [main] Started DemoApplication in 0.68 seconds (JVM running for 1.053)
+2021-07-01 11:38:19,714 INFO org.springframework.boot.autoconfigure.batch.JobLauncherApplicationRunner [main] Running default command line with: []
+2021-07-01 11:38:19,740 INFO org.springframework.batch.core.launch.support.SimpleJobLauncher$1 [main] Job: [SimpleJob: [name=job]] launched with the following parameters: [{}]
+2021-07-01 11:38:19,757 INFO org.springframework.batch.core.job.SimpleStepHandler [main] Executing step: [step]
+2021-07-01 11:38:19,765 INFO com.config.processor [main] processing item foo
+2021-07-01 11:38:19,765 INFO com.config.processor [main] processing item bar
+2021-07-01 11:38:19,768 INFO org.springframework.batch.core.step.AbstractStep [main] Step: [step] executed in 11ms
+2021-07-01 11:38:19,771 INFO org.springframework.batch.core.launch.support.SimpleJobLauncher$1 [main] Job: [SimpleJob: [name=job]] completed with the following parameters: [{}] and the following status: [COMPLETED] in 21ms
+2021-07-01 11:38:19,772 INFO com.config.DemoApplication [main] merging files
+2021-07-01 11:38:19,773 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown initiated...
+2021-07-01 11:38:19,775 INFO com.zaxxer.hikari.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown completed.
