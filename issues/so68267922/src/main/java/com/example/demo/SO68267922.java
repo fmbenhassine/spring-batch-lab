@@ -6,25 +6,22 @@ import java.util.concurrent.TimeUnit;
 
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.partition.support.Partitioner;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.repeat.RepeatStatus;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 
-@Configuration
+@SpringBootApplication
 @EnableBatchProcessing
 public class SO68267922 {
 
@@ -52,6 +49,7 @@ public class SO68267922 {
                 .taskExecutor(taskExecutor())
                 .build();
     }
+
 
     @Bean
     public Step slaveStep() {
@@ -81,21 +79,17 @@ public class SO68267922 {
         return simpleAsyncTaskExecutor;
     }
 
-    public static void main(String[] args) throws Exception {
-        System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "debug");
-        ApplicationContext context = new AnnotationConfigApplicationContext(SO68267922.class);
-        JobLauncher jobLauncher = context.getBean(JobLauncher.class);
-        Job job = context.getBean(Job.class);
-        jobLauncher.run(job, new JobParameters());
+    public static void main(String[] args) {
+        SpringApplication.run(SO68267922.class, args);
     }
 
     public static class TaskletWait implements Tasklet {
         @Override
         public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext){
             String stepName = contribution.getStepExecution().getStepName();
-            System.out.println(Thread.currentThread().getName() +  " starting step: " + stepName);
+            System.out.println("######" + Thread.currentThread().getName() +  " starting step: " + stepName);
             try {
-                TimeUnit.SECONDS.sleep(10);
+                TimeUnit.SECONDS.sleep(100);
             } catch (InterruptedException e) {
                 System.err.println(e.getMessage());
             }
@@ -103,5 +97,6 @@ public class SO68267922 {
             return RepeatStatus.FINISHED;
         }
     }
+
 
 }
