@@ -1,0 +1,10 @@
+insert into person values (1, 'foo1');
+insert into person values (2, 'foo2');
+insert into person values (3, 'foo3');
+insert into person values (4, 'foo4');
+insert into person values (5, 'foo5');
+insert into person values (6, 'foo6');
+insert into person values (7, 'foo7');
+insert into person values (8, 'foo8');
+insert into person values (9, 'foo9');
+insert into person values (10, 'foo10');
