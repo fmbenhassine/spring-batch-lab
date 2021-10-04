@@ -21,7 +21,7 @@ public class JobConfiguration {
                             return RepeatStatus.FINISHED;
                         })
                         .build())
-                .next(steps.get("step1")
+                .next(steps.get("step2")
                         .tasklet((contribution, chunkContext) -> {
                             System.out.println("world");
                             return RepeatStatus.FINISHED;
