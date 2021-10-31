@@ -5,19 +5,21 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
-import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
-import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.configuration.annotation.StepScope;
+import org.springframework.batch.core.configuration.annotation.*;
+import org.springframework.batch.core.explore.JobExplorer;
+import org.springframework.batch.core.explore.support.JobExplorerFactoryBean;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.partition.StepExecutionSplitter;
 import org.springframework.batch.core.partition.support.Partitioner;
 import org.springframework.batch.core.partition.support.SimpleStepExecutionSplitter;
 import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.batch.core.repository.dao.Jackson2ExecutionContextStringSerializer;
+import org.springframework.batch.core.repository.support.JobRepositoryFactoryBean;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.repeat.RepeatStatus;
@@ -33,13 +35,45 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 @Configuration
 @EnableBatchProcessing
-public class MyJob {
+public class MyJob extends DefaultBatchConfigurer {
 
 	@Autowired
 	private JobBuilderFactory jobBuilderFactory;
 
 	@Autowired
 	private StepBuilderFactory stepBuilderFactory;
+
+	@Override
+	@SuppressWarnings("findbugs:NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
+	public JobRepository createJobRepository() throws Exception {
+		JobRepositoryFactoryBean jobRepositoryFactoryBean = new JobRepositoryFactoryBean();
+		jobRepositoryFactoryBean.setDataSource(dataSource());
+		jobRepositoryFactoryBean.setTransactionManager(getTransactionManager());
+		jobRepositoryFactoryBean.setIsolationLevelForCreate("ISOLATION_DEFAULT");
+		jobRepositoryFactoryBean.setValidateTransactionState(true);
+		jobRepositoryFactoryBean.setSerializer(serializer());
+		jobRepositoryFactoryBean.afterPropertiesSet();
+		return jobRepositoryFactoryBean.getObject();
+	}
+
+	@Override
+	@SuppressWarnings("findbugs:NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
+	public JobExplorer createJobExplorer() throws Exception {
+		JobExplorerFactoryBean jobExplorerFactoryBean = new JobExplorerFactoryBean();
+		jobExplorerFactoryBean.setDataSource(dataSource());
+		jobExplorerFactoryBean.setSerializer(serializer());
+		jobExplorerFactoryBean.afterPropertiesSet();
+
+		return jobExplorerFactoryBean.getObject();
+	}
+
+	@Bean
+	public Jackson2ExecutionContextStringSerializer serializer() {
+		Jackson2ExecutionContextStringSerializer serializer = new Jackson2ExecutionContextStringSerializer();
+		ObjectMapper objectMapper = new ObjectMapper();
+		serializer.setObjectMapper(objectMapper);
+		return serializer;
+	}
 
 	@Bean
 	public Step managerStep() {
