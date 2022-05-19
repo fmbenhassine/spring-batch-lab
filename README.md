@@ -1,6 +1,6 @@
 # About this repository
 
-This reposiotry contains all my work related to Spring Batch:
+This repository contains all my work related to Spring Batch:
 
 * `blog`: Source code of my blog posts about Spring Batch
 * `issues`: [Minimal complete examples](https://stackoverflow.com/help/minimal-reproducible-example) to (try to) reproduce issues reported on Github and StackOverflow
