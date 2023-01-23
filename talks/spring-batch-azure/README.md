@@ -22,8 +22,8 @@ First create an Azure Spring App:
 
 ```
 $>az spring app create \
-    --resource-group mcnees-open-dev-sandbox \
-    --service mcnees-open-dev \
+    --resource-group <YOUR_RESOURCE_GROUP> \
+    --service <YOUR_SERVICE_NAME> \
     --name spring-batch-app \
     --assign-endpoint false
 ```
@@ -32,8 +32,8 @@ Then deploy it to Azure:
 
 ```
 $>az spring app deploy \
-    --resource-group mcnees-open-dev-sandbox \
-    --service mcnees-open-dev \
+    --resource-group <YOUR_RESOURCE_GROUP> \
+    --service <YOUR_SERVICE_NAME> \
     --name spring-batch-app \
     --artifact-path target/spring-batch-azure-0.0.1-SNAPSHOT.jar
 ```
@@ -42,8 +42,8 @@ You can check the application logs with the following command:
 
 ```
 $>az spring app logs \
-    --resource-group mcnees-open-dev-sandbox \
-    --service mcnees-open-dev \
+    --resource-group <YOUR_RESOURCE_GROUP> \
+    --service <YOUR_SERVICE_NAME> \
     --name spring-batch-app
 ```
 
@@ -51,8 +51,8 @@ You should see something like the following output:
 
 ```
 Build in Environment Variables
-BUILD_IN_EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=https://mcnees-open-dev.svc.azuremicroservices.io/eureka/eureka
-BUILD_IN_SPRING_CLOUD_CONFIG_URI=https://mcnees-open-dev.svc.azuremicroservices.io/config
+BUILD_IN_EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=https://<YOUR_SERVICE_NAME>.svc.azuremicroservices.io/eureka/eureka
+BUILD_IN_SPRING_CLOUD_CONFIG_URI=https://<YOUR_SERVICE_NAME>.svc.azuremicroservices.io/config
 BUILD_IN_SPRING_CLOUD_CONFIG_FAILFAST=true
 [Azure Spring Cloud] The following environment variables are loaded:
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
@@ -82,5 +82,14 @@ Hello Azure World!
 2023-01-20T13:16:51.239Z  INFO 1 --- [           main] o.s.b.c.l.support.SimpleJobLauncher      : Job: [SimpleJob: [name=job]] completed with the following parameters: [{}] and the following status: [COMPLETED] in 99ms
 2023-01-20T13:16:51.250Z  INFO 1 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2023-01-20T13:16:51.256Z  INFO 1 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-mbenhassine@mbenhassinMMD6R spring-batch-azure %
 ```
+
+# Feedback
+
+What I really like about ASA is that it automatically prepared the following:
+
+* A configuration server: `BUILD_IN_SPRING_CLOUD_CONFIG_URI=https://<YOUR_SERVICE_NAME>.svc.azuremicroservices.io/config`
+* A service discovery server: `BUILD_IN_EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=https://<YOUR_SERVICE_NAME>.svc.azuremicroservices.io/eureka/eureka`
+* A MS OpenJDK distribution: `home: /usr/lib/jvm/msopenjdk-17`
+* A meter registry that pushes metrics to Azure: `i.m.c.instrument.push.PushMeterRegistry  : publishing metrics for AzureMonitorMeterRegistry every 1m`
+* and many other things that are possible through the CLI and GUI!
