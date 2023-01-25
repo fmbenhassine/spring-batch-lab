@@ -2,7 +2,7 @@ version: '3.3'
 services:
 
   zipkin:
-    image: openzipkin/zipkin:2.23.4
+    image: openzipkin/zipkin:2.24.0
     container_name: 'zipkin'
     ports:
       - '9411:9411'
