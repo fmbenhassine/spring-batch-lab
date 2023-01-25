@@ -19,9 +19,6 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 public class MyBatchJobTests {
 
 	@Autowired
-	private Job jobUnderTest;
-
-	@Autowired
 	private JobLauncherTestUtils jobLauncherTestUtils;
 
 	@Autowired
@@ -29,7 +26,6 @@ public class MyBatchJobTests {
 
 	@BeforeEach
 	public void clearJobExecutions() {
-		this.jobLauncherTestUtils.setJob(this.jobUnderTest);
 		this.jobRepositoryTestUtils.removeJobExecutions();
 	}
 
