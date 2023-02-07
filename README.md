@@ -28,22 +28,22 @@ $ tree .
 └── blog
     └── spring-batch-kubernetes
         ├── data
-        │   ├── sample1.csv
-        │   └── sample2.csv
+        │   ├── sample1.csv
+        │   └── sample2.csv
         ├── pom.xml
         └── src
             ├── docker
-            │   └── docker-compose.yml
+            │   └── docker-compose.yml
             ├── kubernetes
-            │   ├── database-service.yaml
-            │   └── job.yaml
+            │   ├── database-service.yaml
+            │   └── job.yaml
             ├── main
-            │   └── java
-            │       └── com
-            │           └── example
-            │               └── demo
-            │                   ├── BootifulJobApplication.java
-            │                   └── Person.java
+            │   └── java
+            │       └── com
+            │           └── example
+            │               └── demo
+            │                   ├── BootifulJobApplication.java
+            │                   └── Person.java
             └── sql
                 └── database.sql
 
