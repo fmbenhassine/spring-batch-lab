@@ -12,8 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
-        <spring.version>6.0.1</spring.version>
-        <spring.batch.version>5.0.0</spring.batch.version>
+        <spring.batch.version>5.0.1</spring.batch.version>
     </properties>
     <dependencies>
         <dependency>
@@ -42,21 +41,6 @@
             <artifactId>junit-jupiter</artifactId>
             <version>5.9.1</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-beans</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hsqldb</groupId>
