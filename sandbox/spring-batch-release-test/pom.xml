@@ -71,14 +71,6 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-<!--        <repository>-->
-<!--            <id>s01.oss.sonatype.org</id>-->
-<!--            <name>s01.oss.sonatype.org</name>-->
-<!--            <url>https://s01.oss.sonatype.org/content/repositories/orgspringframework-1263</url>-->
-<!--            <snapshots>-->
-<!--                <enabled>false</enabled>-->
-<!--            </snapshots>-->
-<!--        </repository>-->
     </repositories>
     <build>
         <plugins>
