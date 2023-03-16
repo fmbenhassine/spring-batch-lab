@@ -14,7 +14,7 @@ This repository contains all my work related to Spring Batch:
 This repository contains dozens of projects and you might want to checkout only a single folder instead of the entire repository. This can be done with the `git sparse-checkout` command. For example, if you want to only checkout the source code of my blog post about running Spring Batch jobs on Kubernetes [here](https://github.com/benas/spring-batch-lab/tree/master/blog/spring-batch-kubernetes), you can run the following commands:
 
 ```
-$> git clone --sparse --depth 1 https://github.com/benas/spring-batch-lab
+$> git clone --sparse --depth 1 https://github.com/fmbenhassine/spring-batch-lab
 $> cd spring-batch-lab
 $> git sparse-checkout add blog/spring-batch-kubernetes
 ```
