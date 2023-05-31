@@ -20,13 +20,16 @@ public class SpringBatchAzureApp {
 
 	@Bean
 	public Job job(JobRepository jobRepository, JdbcTransactionManager transactionManager) {
-		Step step = new StepBuilder("step", jobRepository).tasklet((contribution, chunkContext) -> {
-			System.out.println("Hello Azure World!");
-			return RepeatStatus.FINISHED;
-		}, transactionManager).build();
+		Step step = new StepBuilder("step", jobRepository)
+				.tasklet((contribution, chunkContext) -> {
+					System.out.println("Hello Azure World!");
+					return RepeatStatus.FINISHED;
+				}, transactionManager)
+				.build();
 
 		return new JobBuilder("job", jobRepository)
-				.start(step).build();
+				.start(step)
+				.build();
 
 	}
 
