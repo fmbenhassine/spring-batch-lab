@@ -21,30 +21,44 @@ $>mvn package
 First create an Azure Spring App:
 
 ```
-$>az spring app create \
-    --resource-group <YOUR_RESOURCE_GROUP> \
-    --service <YOUR_SERVICE_NAME> \
-    --name spring-batch-app \
-    --assign-endpoint false
+$>az spring app create --resource-group batch-rg --service batch-service --name my-batch-job --instance-count 1 --assign-endpoint false --assign-public-endpoint false
 ```
+
+```
+This command usually takes minutes to run. Add '--verbose' parameter if needed.
+The HTTP resource that matches the request URI 'https://northeurope-gen2.resourceprovider.azureappplatform.io/subscriptions/2a69e18f-c0e7-47b5-8c21-9382240428cf/resourceGroups/batch-rg/providers/Microsoft.AppPlatform/Spring/batch-service' does not support the API version '2022-09-01-preview'.
+```
+
+=> create the app through the UI
 
 Then deploy it to Azure:
 
 ```
-$>az spring app deploy \
-    --resource-group <YOUR_RESOURCE_GROUP> \
-    --service <YOUR_SERVICE_NAME> \
-    --name spring-batch-app \
-    --artifact-path target/spring-batch-azure-0.0.1-SNAPSHOT.jar
+$>az spring app deploy --resource-group batch-rg --service batch-service --name my-batch-job --artifact-path target/spring-batch-azure-0.0.1-SNAPSHOT.jar
 ```
+
+```
+$>az spring app deploy --resource-group batch-rg --service batch-service --name my-batch-job --artifact-path target/spring-batch-azure-0.0.1-SNAPSHOT.jar
+Seems you do not import spring actuator, thus metrics are not enabled, please refer to https://aka.ms/ascdependencies for more details
+This command usually takes minutes to run. Add '--verbose' parameter if needed.
+[1/3] Requesting for upload URL.
+[2/3] Uploading package to blob.
+[3/3] Updating deployment in app "my-batch-job" (this operation can take a while to complete)
+Your application failed to start, please check the logs of your application.
+```
+
+Finally, start the app (automatic execution of batch jobs is disabled at the boot level with `spring.batch.job.enabled=false`):
+
+```
+$>az spring app start --resource-group batch-rg --service batch-service --name my-batch-job
+```
+
+Question: How to pass job parameters?
 
 You can check the application logs with the following command:
 
 ```
-$>az spring app logs \
-    --resource-group <YOUR_RESOURCE_GROUP> \
-    --service <YOUR_SERVICE_NAME> \
-    --name spring-batch-app
+$>az spring app logs --resource-group batch-rg --service batch-service --name my-batch-job
 ```
 
 You should see something like the following output:
